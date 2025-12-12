@@ -45,7 +45,6 @@ if (signupForm) {
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirm-password').value;
         const telefono = document.getElementById('telefono').value.trim();
-        const terms = document.getElementById('terms').checked;
 
         // Validación básica
         if (!firstname || !lastname || !email || !password || !confirmPassword || !telefono) {
@@ -55,11 +54,6 @@ if (signupForm) {
 
         if (password !== confirmPassword) {
             errorElem.textContent = 'Las contraseñas no coinciden.';
-            return;
-        }
-
-        if (!terms) {
-            errorElem.textContent = 'Debes aceptar los términos y condiciones.';
             return;
         }
 
