@@ -1,0 +1,187 @@
+/* Estilos para la navegación de jornadas */
+.jornadas-navegacion {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1.5rem 1rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    background: var(--background-secondary, #f8f9fa);
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Ocultar scrollbar pero mantener funcionalidad */
+.jornadas-navegacion::-webkit-scrollbar {
+    height: 6px;
+}
+
+.jornadas-navegacion::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.jornadas-navegacion::-webkit-scrollbar-thumb {
+    background: var(--primary-color, #2563eb);
+    border-radius: 3px;
+}
+
+.jornadas-navegacion::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark, #1e40af);
+}
+
+/* Botones de jornada */
+.jornada-btn {
+    flex-shrink: 0;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--border-color, #e5e7eb);
+    background: white;
+    color: var(--text-color, #374151);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+}
+
+.jornada-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.jornada-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    border-color: var(--primary-color, #2563eb);
+}
+
+.jornada-btn:hover::before {
+    left: 100%;
+}
+
+.jornada-btn.active {
+    background: var(--primary-color, #2563eb);
+    color: white;
+    border-color: var(--primary-color, #2563eb);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.jornada-btn:active {
+    transform: translateY(0);
+}
+
+/* Estilo para partidos programados */
+.partido-programado {
+    opacity: 0.7;
+    position: relative;
+}
+
+.partido-programado::after {
+    content: 'PROGRAMADO';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--primary-color, #2563eb);
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    pointer-events: none;
+}
+
+.info-partido-programado {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-top: 0.5rem;
+    color: var(--text-muted, #6b7280);
+    font-size: 0.9rem;
+}
+
+.info-partido-programado p {
+    margin: 0.25rem 0;
+}
+
+.info-partido-programado strong {
+    color: var(--primary-color, #2563eb);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+}
+
+/* Indicadores de carga y error */
+.loading-indicator,
+.error-message {
+    text-align: center;
+    padding: 2rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+}
+
+.loading-indicator {
+    background: var(--background-secondary, #f8f9fa);
+    color: var(--text-color, #374151);
+}
+
+.error-message {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger, #dc2626);
+    border: 1px solid var(--danger, #dc2626);
+}
+
+/* Modo oscuro */
+[data-theme="dark"] .jornadas-navegacion {
+    background: var(--dark-secondary, #1f2937);
+}
+
+[data-theme="dark"] .jornada-btn {
+    background: var(--dark-card, #374151);
+    color: var(--dark-text, #e5e7eb);
+    border-color: var(--dark-border, #4b5563);
+}
+
+[data-theme="dark"] .jornada-btn:hover {
+    border-color: var(--primary-color, #2563eb);
+    background: var(--dark-card-hover, #4b5563);
+}
+
+[data-theme="dark"] .jornada-btn.active {
+    background: var(--primary-color, #2563eb);
+    color: white;
+}
+
+[data-theme="dark"] .partido-programado::after {
+    background: rgba(37, 99, 235, 0.2);
+}
+
+[data-theme="dark"] .info-partido-programado {
+    color: var(--dark-text-muted, #9ca3af);
+}
+
+[data-theme="dark"] .loading-indicator {
+    background: var(--dark-secondary, #1f2937);
+    color: var(--dark-text, #e5e7eb);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .jornadas-navegacion {
+        padding: 1rem 0.5rem;
+        gap: 0.5rem;
+    }
+    
+    .jornada-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+    }
+}

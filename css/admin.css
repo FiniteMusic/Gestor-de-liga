@@ -1,0 +1,138 @@
+.admin-container{
+    margin: 0 30px;
+}
+
+.admin-pantalla{
+    width: 100vw !important;
+}
+
+.convocatoria-title, .gestion-torneo-title {
+    background-color: var(--text-main);
+    width: 100%;
+    padding: 1rem;
+}
+
+:root[data-theme="dark"] .convocatoria-title,
+:root[data-theme="dark"] .gestion-torneo-title {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.controles div h1 {
+    color: var(--text-main-inversed);
+}
+
+:root[data-theme="dark"] .controles div h1 {
+    color: #fff;
+}
+
+.convocatoria-content, .gestion-torneo-content, .content{
+    background-color: var(--text-main-inversed);
+}
+
+:root[data-theme="dark"] .convocatoria-content,
+:root[data-theme="dark"] .gestion-torneo-content,
+:root[data-theme="dark"] .content {
+    background-color: var(--bg-surface);
+}
+
+.content{
+    height: 100%;
+    padding: 20px;
+}
+
+.convocatoria-content-item,
+.gestion-torneo-content-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+:root[data-theme="dark"] .convocatoria-content-item:hover,
+:root[data-theme="dark"] .gestion-torneo-content-item:hover,
+:root[data-theme="dark"] .convocatoria-content-item.active-menu-item,
+:root[data-theme="dark"] .gestion-torneo-content-item.active-menu-item {
+    background-color: rgba(139, 92, 246, 0.15);
+    border-radius: 8px;
+}
+
+ .convocatoria-content-item:hover,
+.gestion-torneo-content-item:hover,
+.convocatoria-content-item.active-menu-item,
+.gestion-torneo-content-item.active-menu-item {
+    background-color: rgba(44, 60, 240, 0.071);
+    border-radius: 8px;
+}
+
+.convocatoria-content-item-icon,
+.gestion-torneo-content-item-icon{
+    color: var(--text-main) !important;
+}
+
+:root[data-theme="dark"] .convocatoria-content-item-icon,
+:root[data-theme="dark"] .gestion-torneo-content-item-icon {
+    color: var(--color-accent-500) !important;
+}
+
+/* ------- Basic grid utilities ------- */
+
+.grid-2x2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+}
+
+.grid-2x4 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, auto);
+}
+
+.grid-1-5 {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    gap: 1rem;
+    align-items: start;
+}
+
+.grid-5-1 {
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    gap: 1rem;
+    align-items: start;
+}
+
+.grid-gap-0 {
+    gap: 0 !important;
+}
+
+.grid-gap-1 {
+    gap: .25rem !important;
+}
+
+.grid-gap-2 {
+    gap: .5rem !important;
+}
+
+.grid-gap-3 {
+    gap: 1rem !important;
+}
+
+.grid-center {
+    align-items: center;
+    justify-items: center;
+}
+
+.grid-stretch {
+    align-items: stretch;
+    justify-items: stretch;
+}
+
+.grid-1-5>* {
+    min-width: 0;
+}

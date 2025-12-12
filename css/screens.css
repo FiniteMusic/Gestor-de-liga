@@ -1,0 +1,27 @@
+.pantalla {
+    opacity: 0;
+    transform: translateX(20px);
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* contenedor para que las sections se apilen una sobre otra */
+.main-content {
+    position: relative;
+    min-height: 400px;
+    /* ajusta según tu layout */
+}
+
+/* cuando está visible */
+.pantalla.activa {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+/* si quieres además poder usar display:none cuando no esté activa */
+.pantalla.hidden {
+    display: none;
+}

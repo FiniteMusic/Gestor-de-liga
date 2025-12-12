@@ -1,0 +1,702 @@
+<!-- Vista de Gestión de Equipos -->
+<style>
+    /* Estilos SOLO para el módulo de equipos - No afectan a admin.php */
+    .calendario-page {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        color: var(--text-main);
+    }
+
+    .calendario-page .cal-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    .calendario-page .cal-header {
+        background: var(--bg-surface);
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        margin-bottom: 2rem;
+        border: 1px solid var(--border-muted);
+    }
+
+    .calendario-page .cal-title {
+        color: var(--text-heading);
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .calendario-page .cal-subtitle {
+        color: var(--text-muted);
+        font-size: 1rem;
+    }
+
+    .calendario-page .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .calendario-page .form-label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-strong);
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .calendario-page .form-control {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 2px solid var(--border-main);
+        border-radius: var(--radius-sm);
+        background: var(--bg-surface);
+        color: var(--text-main);
+        font-size: 1rem;
+        transition: all 0.3s;
+    }
+
+    .calendario-page .form-control:focus {
+        outline: none;
+        border-color: var(--color-accent-600);
+        box-shadow: 0 0 0 3px rgba(5, 116, 184, 0.1);
+    }
+
+    :root[data-theme="dark"] .calendario-page .form-control:focus {
+        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+    }
+
+    .calendario-page .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .calendario-page .stat-card {
+        background: var(--bg-surface-soft);
+        padding: 1.5rem;
+        border-radius: var(--radius-sm);
+        border-left: 4px solid var(--color-accent-500);
+    }
+
+    .calendario-page .stat-label {
+        color: var(--text-muted);
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .calendario-page .stat-value {
+        color: var(--text-heading);
+        font-size: 2rem;
+        font-weight: 700;
+        margin-top: 0.5rem;
+    }
+
+    .calendario-page .table-wrapper {
+        background: var(--bg-surface);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        overflow: hidden;
+        border: 1px solid var(--border-muted);
+        margin-top: 2rem;
+    }
+
+    .calendario-page .table-header {
+        background: var(--bg-surface-soft);
+        padding: 1.5rem;
+        border-bottom: 2px solid var(--border-main);
+    }
+
+    .calendario-page .table-title {
+        color: var(--text-heading);
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .calendario-page .table-container {
+        overflow-x: auto;
+    }
+
+    .calendario-page table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .calendario-page thead {
+        background: var(--bg-surface-soft);
+        border-bottom: 2px solid var(--border-main);
+    }
+
+    .calendario-page th {
+        padding: 1rem;
+        text-align: left;
+        font-weight: 700;
+        color: var(--text-strong);
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .calendario-page tbody tr {
+        border-bottom: 1px solid var(--border-muted);
+        transition: background 0.2s ease;
+    }
+
+    .calendario-page tbody tr:hover {
+        background: var(--bg-surface-soft);
+    }
+
+    .calendario-page tbody tr:last-child {
+        border-bottom: none;
+    }
+
+    .calendario-page td {
+        padding: 1.25rem 1rem;
+        color: var(--text-main);
+        font-size: 0.95rem;
+    }
+
+    .calendario-page .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.875rem;
+        border-radius: var(--radius-sm);
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    .calendario-page .status-preinscrito {
+        background: rgba(245, 158, 11, 0.1);
+        color: var(--warning);
+        border: 1px solid var(--warning);
+    }
+
+    .calendario-page .status-confirmado {
+        background: rgba(34, 197, 94, 0.1);
+        color: var(--success);
+        border: 1px solid var(--success);
+    }
+
+    .calendario-page .status-descalificado {
+        background: rgba(239, 68, 68, 0.1);
+        color: var(--danger);
+        border: 1px solid var(--danger);
+    }
+
+    .calendario-page .status-eliminado {
+        background: rgba(107, 114, 128, 0.1);
+        color: #6b7280;
+        border: 1px solid #6b7280;
+    }
+
+    :root[data-theme="dark"] .calendario-page .status-preinscrito {
+        background: rgba(245, 158, 11, 0.15);
+        color: #fcd34d;
+    }
+
+    :root[data-theme="dark"] .calendario-page .status-confirmado {
+        background: rgba(16, 185, 129, 0.15);
+        color: #86efac;
+    }
+
+    :root[data-theme="dark"] .calendario-page .status-descalificado {
+        background: rgba(239, 68, 68, 0.15);
+        color: #fca5a5;
+    }
+
+    :root[data-theme="dark"] .calendario-page .status-eliminado {
+        background: rgba(107, 114, 128, 0.15);
+        color: #9ca3af;
+    }
+
+    .calendario-page .btn {
+        padding: 0.875rem 1.5rem;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        white-space: nowrap;
+    }
+
+    .calendario-page .btn-small {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    .calendario-page .btn-primary {
+        background: var(--color-accent-600);
+        color: white;
+    }
+
+    .calendario-page .btn-primary:hover:not(:disabled) {
+        background: var(--color-accent-700);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-soft);
+    }
+
+    :root[data-theme="dark"] .calendario-page .btn-primary:hover:not(:disabled) {
+        box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+    }
+
+    .calendario-page .btn-success {
+        background: var(--success);
+        color: white;
+    }
+
+    .calendario-page .btn-success:hover:not(:disabled) {
+        background: #059669;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-soft);
+    }
+
+    .calendario-page .btn-warning {
+        background: var(--warning);
+        color: white;
+    }
+
+    .calendario-page .btn-warning:hover:not(:disabled) {
+        background: #d97706;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-soft);
+    }
+
+    .calendario-page .btn-danger {
+        background: var(--danger);
+        color: white;
+    }
+
+    .calendario-page .btn-danger:hover:not(:disabled) {
+        background: #dc2626;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-soft);
+    }
+
+    .calendario-page .btn-secondary {
+        background: #6b7280;
+        color: white;
+    }
+
+    .calendario-page .btn-secondary:hover:not(:disabled) {
+        background: #4b5563;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-soft);
+    }
+
+    .calendario-page .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .calendario-page .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .calendario-page .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        animation: fadeIn 0.3s;
+    }
+
+    .calendario-page .modal-content {
+        background: var(--bg-surface);
+        margin: 10% auto;
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        max-width: 500px;
+        box-shadow: var(--shadow-card);
+        animation: slideDown 0.3s;
+        border: 1px solid var(--border-muted);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+        from { transform: translateY(-50px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    .calendario-page .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--border-main);
+    }
+
+    .calendario-page .modal-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-heading);
+    }
+
+    .calendario-page .close-btn {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--text-muted);
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--radius-sm);
+        transition: all 0.2s;
+    }
+
+    .calendario-page .close-btn:hover {
+        background: var(--bg-surface-soft);
+        color: var(--text-heading);
+    }
+
+    .calendario-page .modal-body {
+        margin-bottom: 1.5rem;
+    }
+
+    .calendario-page .modal-body p {
+        color: var(--text-main);
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .calendario-page .modal-footer {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+    }
+
+    .calendario-page .loading-container {
+        text-align: center;
+        padding: 3rem;
+    }
+
+    .calendario-page .spinner {
+        border: 3px solid var(--border-main);
+        border-top: 3px solid var(--color-accent-500);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: cal-spin 1s linear infinite;
+        margin: 0 auto 1rem;
+    }
+
+    @keyframes cal-spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .calendario-page .loading-text {
+        color: var(--text-muted);
+    }
+
+    .calendario-page .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+    }
+
+    .calendario-page .empty-icon {
+        width: 80px;
+        height: 80px;
+        color: var(--text-muted);
+        margin: 0 auto 1.5rem;
+    }
+
+    .calendario-page .empty-title {
+        color: var(--text-heading);
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .calendario-page .empty-text {
+        color: var(--text-muted);
+        font-size: 1rem;
+    }
+
+    .calendario-page #alert-container {
+        margin-bottom: 1rem;
+    }
+
+    .calendario-page .alert {
+        padding: 1rem 1.5rem;
+        border-radius: var(--radius-sm);
+        margin-bottom: 1rem;
+        font-weight: 500;
+        border-left: 4px solid;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .calendario-page .alert-info {
+        background: rgba(59, 130, 246, 0.1);
+        color: #1e40af;
+        border-color: #3b82f6;
+    }
+
+    .calendario-page .alert-success {
+        background: rgba(34, 197, 94, 0.1);
+        color: #065f46;
+        border-color: #10b981;
+    }
+
+    .calendario-page .alert-warning {
+        background: rgba(245, 158, 11, 0.1);
+        color: #92400e;
+        border-color: #f59e0b;
+    }
+
+    .calendario-page .alert-danger {
+        background: rgba(239, 68, 68, 0.1);
+        color: #991b1b;
+        border-color: #ef4444;
+    }
+
+    :root[data-theme="dark"] .calendario-page .alert-info {
+        background: rgba(59, 130, 246, 0.15);
+        color: #93c5fd;
+    }
+
+    :root[data-theme="dark"] .calendario-page .alert-success {
+        background: rgba(16, 185, 129, 0.15);
+        color: #86efac;
+    }
+
+    :root[data-theme="dark"] .calendario-page .alert-warning {
+        background: rgba(245, 158, 11, 0.15);
+        color: #fcd34d;
+    }
+
+    :root[data-theme="dark"] .calendario-page .alert-danger {
+        background: rgba(239, 68, 68, 0.15);
+        color: #fca5a5;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .calendario-page .cal-container {
+            padding: 1rem;
+        }
+
+        .calendario-page .cal-header {
+            padding: 1.5rem;
+        }
+
+        .calendario-page .cal-title {
+            font-size: 1.5rem;
+        }
+
+        .calendario-page .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .calendario-page .table-container {
+            font-size: 0.875rem;
+        }
+
+        .calendario-page th,
+        .calendario-page td {
+            padding: 0.75rem 0.5rem;
+        }
+
+        .calendario-page .action-buttons {
+            flex-direction: column;
+        }
+
+        .calendario-page .action-buttons .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .calendario-page .modal-content {
+            margin: 20% auto;
+            padding: 1.5rem;
+            max-width: 90%;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .calendario-page .stats-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="calendario-page">
+    <div class="cal-container">
+        <!-- Header Section -->
+        <div class="cal-header">
+            <h1 class="cal-title">Gestión de Equipos</h1>
+            <p class="cal-subtitle">Administra los equipos registrados en la liga deportiva</p>
+            
+            <!-- Filtros -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label for="filtro-tipo" class="form-label">Tipo de Fútbol</label>
+                    <select id="filtro-tipo" class="form-control">
+                        <option value="">Todos</option>
+                        <option value="futbol11">Fútbol 11</option>
+                        <option value="futbol7">Fútbol 7</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label for="filtro-estado" class="form-label">Estado</label>
+                    <select id="filtro-estado" class="form-control">
+                        <option value="">Todos</option>
+                        <option value="preinscrito">Preinscrito</option>
+                        <option value="confirmado">Confirmado</option>
+                        <option value="descalificado">Descalificado</option>
+                        <option value="eliminado">Eliminado</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label for="filtro-torneo" class="form-label">Torneo</label>
+                    <select id="filtro-torneo" class="form-control">
+                        <option value="">Todos</option>
+                        <!-- Se llenarán dinámicamente -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- Estadísticas -->
+            <div class="stats-grid" id="stats-container">
+                <div class="stat-card">
+                    <div class="stat-label">Total Equipos</div>
+                    <div class="stat-value" id="stat-total">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Confirmados</div>
+                    <div class="stat-value" id="stat-confirmados">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Preinscritos</div>
+                    <div class="stat-value" id="stat-preinscritos">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Descalificados</div>
+                    <div class="stat-value" id="stat-descalificados">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mensajes de alerta -->
+        <div id="alert-container"></div>
+
+        <!-- Tabla de Equipos -->
+        <div class="table-wrapper" id="tabla-equipos-wrapper">
+            <div class="table-header">
+                <h2 class="table-title">Equipos Registrados</h2>
+            </div>
+            
+            <!-- Loading State -->
+            <div id="loading-state" class="loading-container">
+                <div class="spinner"></div>
+                <p class="loading-text">Cargando equipos...</p>
+            </div>
+
+            <!-- Table Container -->
+            <div id="table-content" class="table-container" style="display: none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Equipo</th>
+                            <th>Torneo</th>
+                            <th>Estado</th>
+                            <th>Capitán</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                            <th>Fecha Inscripción</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="equipos-tbody">
+                        <!-- Se llenará dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-state" class="empty-state" style="display: none;">
+                <svg class="empty-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <h3 class="empty-title">No hay equipos registrados</h3>
+                <p class="empty-text">Los equipos aparecerán aquí cuando se registren en el sistema</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Confirmación -->
+<div id="confirmModal" class="calendario-page">
+    <div class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Confirmar Acción</h3>
+                <button class="close-btn" onclick="cerrarModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="modal-message">¿Estás seguro de realizar esta acción?</p>
+                <div class="form-group" id="notas-container" style="display: none; margin-top: 1rem;">
+                    <label for="modal-notas" class="form-label">Notas (opcional)</label>
+                    <textarea id="modal-notas" class="form-control" rows="3" placeholder="Agregar notas sobre esta acción..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="cerrarModal()">Cancelar</button>
+                <button class="btn btn-primary" id="confirm-btn" onclick="confirmarAccion()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/equipos.js"></script>

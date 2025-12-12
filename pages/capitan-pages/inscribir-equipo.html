@@ -1,0 +1,357 @@
+<!-- Archivo: capitan-pages/inscribir-equipo.html -->
+<style>
+    /* Estilos específicos para el formulario de registro */
+    .registro-page {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        color: var(--text-main);
+        padding: 0;
+    }
+
+    .registro-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .registro-header {
+        background: var(--bg-surface);
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        margin-bottom: 2rem;
+        border: 1px solid var(--border-muted);
+        text-align: center;
+    }
+
+    .registro-title {
+        color: var(--text-heading);
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .registro-subtitle {
+        color: var(--text-muted);
+        font-size: 1rem;
+    }
+
+    .form-card {
+        background: var(--bg-surface);
+        padding: 2.5rem;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        border: 1px solid var(--border-muted);
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-strong);
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .form-label .required {
+        color: var(--danger);
+        margin-left: 0.25rem;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        border: 2px solid var(--border-main);
+        border-radius: var(--radius-sm);
+        background: var(--bg-surface);
+        color: var(--text-main);
+        font-size: 1rem;
+        transition: all 0.3s;
+        box-sizing: border-box;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: var(--color-accent-600);
+        box-shadow: 0 0 0 3px rgba(5, 116, 184, 0.1);
+    }
+
+    :root[data-theme="dark"] .form-control:focus {
+        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+    }
+
+    .form-control:disabled {
+        background: var(--bg-surface-soft);
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+
+    .form-hint {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        display: block;
+        margin-top: 0.5rem;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    .torneo-info {
+        background: var(--bg-surface-soft);
+        padding: 1.25rem;
+        border-radius: var(--radius-sm);
+        border-left: 4px solid var(--color-accent-500);
+        margin-top: 0.75rem;
+    }
+
+    .torneo-info-label {
+        color: var(--text-muted);
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
+    }
+
+    .torneo-info-value {
+        color: var(--text-heading);
+        font-size: 1.1rem;
+        font-weight: 700;
+    }
+
+    .torneo-info-detail {
+        color: var(--text-muted);
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+
+    .alert {
+        padding: 1rem 1.25rem;
+        border-radius: var(--radius-sm);
+        margin-bottom: 1.5rem;
+        font-weight: 500;
+        border-left: 4px solid;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .alert-icon {
+        font-size: 1.25rem;
+    }
+
+    .alert-info {
+        background: rgba(59, 130, 246, 0.1);
+        color: #1e40af;
+        border-color: #3b82f6;
+    }
+
+    .alert-success {
+        background: rgba(34, 197, 94, 0.1);
+        color: #065f46;
+        border-color: #10b981;
+    }
+
+    .alert-warning {
+        background: rgba(245, 158, 11, 0.1);
+        color: #92400e;
+        border-color: #f59e0b;
+    }
+
+    .alert-error {
+        background: rgba(239, 68, 68, 0.1);
+        color: #991b1b;
+        border-color: #ef4444;
+    }
+
+    :root[data-theme="dark"] .alert-info {
+        background: rgba(59, 130, 246, 0.15);
+        color: #93c5fd;
+    }
+
+    :root[data-theme="dark"] .alert-success {
+        background: rgba(16, 185, 129, 0.15);
+        color: #86efac;
+    }
+
+    :root[data-theme="dark"] .alert-warning {
+        background: rgba(245, 158, 11, 0.15);
+        color: #fcd34d;
+    }
+
+    :root[data-theme="dark"] .alert-error {
+        background: rgba(239, 68, 68, 0.15);
+        color: #fca5a5;
+    }
+
+    .btn {
+        padding: 0.875rem 2rem;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .btn-primary {
+        background: var(--color-accent-600);
+        color: white;
+        width: 100%;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+        background: var(--color-accent-700);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-soft);
+    }
+
+    .btn-primary:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .spinner {
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top: 2px solid white;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    @media (max-width: 768px) {
+        .registro-page {
+            padding: 1rem;
+        }
+
+        .form-card {
+            padding: 1.5rem;
+        }
+
+        .registro-title {
+            font-size: 1.5rem;
+        }
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="registro-page">
+    <div class="registro-container">
+        <!-- Header -->
+        <div class="registro-header">
+            <h1 class="registro-title">🏆 Registro de Equipo</h1>
+            <p class="registro-subtitle">Inscribe tu equipo a la ESCOM League</p>
+        </div>
+
+        <!-- Alertas -->
+        <div id="alertContainer"></div>
+
+        <!-- Formulario -->
+        <div class="form-card">
+            <form id="formRegistroEquipo">
+                <!-- Nombre del Equipo -->
+                <div class="form-group">
+                    <label class="form-label" for="nombreEquipo">
+                        Nombre del Equipo
+                        <span class="required">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="nombreEquipo" 
+                        name="nombreEquipo"
+                        placeholder="Ej: Tiburones Blancos"
+                        required
+                        maxlength="100"
+                    >
+                    <span class="form-hint">Elige un nombre único y representativo para tu equipo</span>
+                </div>
+
+                <!-- Grid: Tipo de Fútbol + Info del Torneo -->
+                <div class="form-grid">
+                    <!-- Tipo de Fútbol -->
+                    <div class="form-group">
+                        <label class="form-label" for="tipoFutbol">
+                            Tipo de Fútbol
+                            <span class="required">*</span>
+                        </label>
+                        <select 
+                            class="form-control" 
+                            id="tipoFutbol" 
+                            name="tipoFutbol"
+                            required
+                        >
+                            <option value="">Selecciona...</option>
+                            <option value="futbol11">Fútbol 11</option>
+                            <option value="futbol7">Fútbol 7</option>
+                        </select>
+                    </div>
+
+                    <!-- Información del Torneo -->
+                    <div class="form-group">
+                        <label class="form-label">
+                            Torneo de Inscripción
+                        </label>
+                        <div id="infoTorneo" class="torneo-info hidden">
+                            <div class="torneo-info-label">Se inscribirá en:</div>
+                            <div class="torneo-info-value" id="nombreTorneo">-</div>
+                            <div class="torneo-info-detail" id="temporadaTorneo">-</div>
+                        </div>
+                        <div id="noTorneoMsg" class="form-hint">
+                            Selecciona un tipo de fútbol para ver el torneo disponible
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Escuela de Procedencia -->
+                <div class="form-group">
+                    <label class="form-label" for="escuela">
+                        Escuela de Procedencia
+                        <span class="required">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="escuela" 
+                        name="escuela"
+                        placeholder="Ej: ESCOM - IPN"
+                        required
+                        maxlength="200"
+                    >
+                    <span class="form-hint">Indica la institución educativa a la que pertenece tu equipo</span>
+                </div>
+
+                <!-- Botón de Envío -->
+                <button type="submit" class="btn btn-primary" id="btnSubmit">
+                    <span id="btnText">Registrar Equipo</span>
+                    <div class="spinner hidden" id="btnSpinner"></div>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="../js/inscribir_equipo.js"></script>

@@ -1,0 +1,394 @@
+<style>
+    /* Estilos para Gestionar Perfil */
+    .perfil-page {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        color: var(--text-main);
+    }
+
+    .perfil-page .perfil-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    .perfil-page .perfil-header {
+        background: var(--bg-surface);
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        margin-bottom: 2rem;
+        border: 1px solid var(--border-muted);
+    }
+
+    .perfil-page .perfil-title {
+        color: var(--text-heading);
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .perfil-page .perfil-subtitle {
+        color: var(--text-muted);
+        font-size: 1rem;
+    }
+
+    .perfil-page .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .perfil-page .form-label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-strong);
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .perfil-page .form-control {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 2px solid var(--border-main);
+        border-radius: var(--radius-sm);
+        background: var(--bg-surface);
+        color: var(--text-main);
+        font-size: 1rem;
+        transition: all 0.3s;
+        box-sizing: border-box;
+    }
+
+    .perfil-page .form-control:focus {
+        outline: none;
+        border-color: var(--color-accent-600);
+        box-shadow: 0 0 0 3px rgba(5, 116, 184, 0.1);
+    }
+
+    :root[data-theme="dark"] .perfil-page .form-control:focus {
+        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+    }
+
+    .perfil-page .form-hint {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        display: block;
+        margin-top: 0.5rem;
+    }
+
+    .perfil-page .section-wrapper {
+        background: var(--bg-surface);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        overflow: hidden;
+        border: 1px solid var(--border-muted);
+        margin-bottom: 2rem;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .perfil-page .section-wrapper:hover {
+        box-shadow: var(--shadow-hover);
+    }
+
+    .perfil-page .section-header {
+        background: var(--bg-surface-soft);
+        padding: 1.5rem;
+        border-bottom: 2px solid var(--border-main);
+    }
+
+    .perfil-page .section-title {
+        color: var(--text-heading);
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .perfil-page .section-content {
+        padding: 2rem;
+    }
+
+    .perfil-page .btn-group {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .perfil-page .btn {
+        padding: 0.875rem 1.5rem;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        white-space: nowrap;
+    }
+
+    .perfil-page .btn svg {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+    }
+
+    .perfil-page .btn-primary {
+        background: var(--color-accent-600);
+        color: white;
+    }
+
+    .perfil-page .btn-primary:hover:not(:disabled) {
+        background: var(--color-accent-700);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-soft);
+    }
+
+    :root[data-theme="dark"] .perfil-page .btn-primary:hover:not(:disabled) {
+        box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+    }
+
+    .perfil-page .btn-danger {
+        background: var(--danger);
+        color: white;
+    }
+
+    .perfil-page .btn-danger:hover:not(:disabled) {
+        background: #dc2626;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-soft);
+    }
+
+    .perfil-page .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .perfil-page .alert {
+        padding: 1rem 1.5rem;
+        border-radius: var(--radius-sm);
+        margin-bottom: 1.5rem;
+        font-weight: 500;
+        border-left: 4px solid;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .perfil-page .alert-info {
+        background: rgba(59, 130, 246, 0.1);
+        color: #1e40af;
+        border-color: #3b82f6;
+    }
+
+    .perfil-page .alert-success {
+        background: rgba(34, 197, 94, 0.1);
+        color: #065f46;
+        border-color: #10b981;
+    }
+
+    .perfil-page .alert-warning {
+        background: rgba(245, 158, 11, 0.1);
+        color: #92400e;
+        border-color: #f59e0b;
+    }
+
+    .perfil-page .alert-danger {
+        background: rgba(239, 68, 68, 0.1);
+        color: #991b1b;
+        border-color: #ef4444;
+    }
+
+    :root[data-theme="dark"] .perfil-page .alert-info {
+        background: rgba(59, 130, 246, 0.15);
+        color: #93c5fd;
+    }
+
+    :root[data-theme="dark"] .perfil-page .alert-success {
+        background: rgba(16, 185, 129, 0.15);
+        color: #86efac;
+    }
+
+    :root[data-theme="dark"] .perfil-page .alert-warning {
+        background: rgba(245, 158, 11, 0.15);
+        color: #fcd34d;
+    }
+
+    :root[data-theme="dark"] .perfil-page .alert-danger {
+        background: rgba(239, 68, 68, 0.15);
+        color: #fca5a5;
+    }
+
+    .perfil-page .section-hidden {
+        display: none;
+    }
+
+    .perfil-page .form-control::placeholder {
+        color: var(--text-muted);
+        opacity: 0.6;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .perfil-page .perfil-container {
+            padding: 1rem;
+        }
+
+        .perfil-page .perfil-header {
+            padding: 1.5rem;
+        }
+
+        .perfil-page .perfil-title {
+            font-size: 1.5rem;
+        }
+
+        .perfil-page .section-content {
+            padding: 1.5rem;
+        }
+
+        .perfil-page .btn-group {
+            flex-direction: column;
+        }
+
+        .perfil-page .btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+
+<div class="perfil-page">
+    <div class="perfil-container">
+        <!-- Header -->
+        <div class="perfil-header">
+            <h1 class="perfil-title">Gestión de Perfil</h1>
+            <p class="perfil-subtitle">Administra tu información personal y crea nuevos administradores</p>
+        </div>
+
+        <!-- Alertas -->
+        <div id="alert-container"></div>
+
+        <!-- Perfil del Usuario Actual -->
+        <div class="section-wrapper">
+            <div class="section-header">
+                <h2 class="section-title">Mi Perfil</h2>
+            </div>
+            <div class="section-content">
+                <form id="form-editar-perfil">
+                    <div class="form-group">
+                        <label class="form-label" for="edit-nombre">Nombre Completo</label>
+                        <input type="text" id="edit-nombre" name="nombre" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="edit-email">Correo Electrónico</label>
+                        <input type="email" id="edit-email" name="email" class="form-control" required>
+                        <span class="form-hint">Este correo será utilizado para iniciar sesión</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="edit-telefono">Teléfono</label>
+                        <input type="tel" id="edit-telefono" name="telefono" class="form-control" placeholder="Opcional">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="edit-password">Nueva Contraseña</label>
+                        <input type="password" id="edit-password" name="password" class="form-control" placeholder="Dejar en blanco para no cambiar">
+                        <span class="form-hint">Mínimo 6 caracteres. Solo completa si deseas cambiar tu contraseña</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="edit-password-confirm">Confirmar Nueva Contraseña</label>
+                        <input type="password" id="edit-password-confirm" name="password_confirm" class="form-control" placeholder="Confirma la nueva contraseña">
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary" id="btn-guardar-perfil">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M15.854 4.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4.5 14.793l10.646-10.647a.5.5 0 0 1 .708 0z"/>
+                            </svg>
+                            Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Botón para Agregar Administrador -->
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" id="btn-toggle-nuevo-admin">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+                Agregar Nuevo Administrador
+            </button>
+        </div>
+
+        <!-- Formulario para Nuevo Administrador (oculto inicialmente) -->
+        <div class="section-wrapper section-hidden" id="section-nuevo-admin">
+            <div class="section-header">
+                <h2 class="section-title">Nuevo Administrador</h2>
+            </div>
+            <div class="section-content">
+                <form id="form-nuevo-admin">
+                    <div class="form-group">
+                        <label class="form-label" for="nuevo-nombre">Nombre Completo</label>
+                        <input type="text" id="nuevo-nombre" name="nombre" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="nuevo-email">Correo Electrónico</label>
+                        <input type="email" id="nuevo-email" name="email" class="form-control" required>
+                        <span class="form-hint">Este correo será utilizado para iniciar sesión</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="nuevo-telefono">Teléfono</label>
+                        <input type="tel" id="nuevo-telefono" name="telefono" class="form-control" placeholder="Opcional">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="nuevo-password">Contraseña</label>
+                        <input type="password" id="nuevo-password" name="password" class="form-control" required minlength="6">
+                        <span class="form-hint">Mínimo 6 caracteres</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="nuevo-password-confirm">Confirmar Contraseña</label>
+                        <input type="password" id="nuevo-password-confirm" name="password_confirm" class="form-control" required>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary" id="btn-crear-admin">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                            </svg>
+                            Crear Administrador
+                        </button>
+                        <button type="button" class="btn btn-danger" id="btn-cancelar-nuevo">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                            </svg>
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/gestionar-perfil.js"></script>

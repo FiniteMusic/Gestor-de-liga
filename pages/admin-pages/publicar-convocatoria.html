@@ -1,0 +1,553 @@
+<div class="convocatoria-container">
+  <div class="upload-form-wrapper">
+    <div class="upload-header">
+      <h2 class="upload-title">Subir Convocatoria</h2>
+      <p class="upload-subtitle">Selecciona un archivo PDF desde tu equipo</p>
+    </div>
+
+    <form id="pdfUploadForm" class="upload-form">
+      <div class="form-group">
+        <label for="documentTitle" class="form-label">Título del documento</label>
+        <input 
+          type="text" 
+          id="documentTitle" 
+          class="form-input" 
+          placeholder="Ej: Convocatoria de Becas 2024"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="documentDescription" class="form-label">Descripción (opcional)</label>
+        <textarea 
+          id="documentDescription" 
+          class="form-textarea" 
+          placeholder="Breve descripción del documento..."
+          rows="3"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Archivo PDF</label>
+        <div class="file-upload-area" id="dropZone">
+          <input 
+            type="file" 
+            id="pdfFile" 
+            accept=".pdf,application/pdf" 
+            class="file-input" 
+            required
+          >
+          <div class="file-upload-content">
+            <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <p class="upload-text">
+              <span class="upload-text-main">Haz clic para seleccionar</span>
+              <span class="upload-text-sub">o arrastra y suelta el archivo aquí</span>
+            </p>
+            <p class="upload-hint">Solo archivos PDF (máx. 10MB)</p>
+          </div>
+          <div class="file-selected" id="fileSelected" style="display: none;">
+            <svg class="file-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+            <div class="file-info">
+              <p class="file-name" id="fileName"></p>
+              <p class="file-size" id="fileSize"></p>
+            </div>
+            <button type="button" class="file-remove" id="removeFile">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="form-error" id="fileError" style="display: none;"></div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" id="cancelBtn">
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary" id="submitBtn">
+          <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          Subir documento
+        </button>
+      </div>
+    </form>
+
+    <div class="upload-success" id="successMessage" style="display: none;">
+      <svg class="success-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+      <h3>¡Documento subido exitosamente!</h3>
+      <p>El archivo se ha cargado correctamente.</p>
+      <button type="button" class="btn btn-primary" id="uploadAnotherBtn">
+        Subir otro documento
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+.convocatoria-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.upload-form-wrapper {
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 2.5rem;
+  border: 1px solid var(--border-muted);
+}
+
+.upload-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.upload-title {
+  color: var(--text-heading);
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.upload-subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  color: var(--text-strong);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.form-input,
+.form-textarea {
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-main);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  color: var(--text-main);
+  background: var(--bg-surface-soft);
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--color-accent-500);
+  box-shadow: 0 0 0 3px rgba(11, 147, 224, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.file-upload-area {
+  position: relative;
+  border: 2px dashed var(--border-main);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background: var(--bg-surface-soft);
+}
+
+.file-upload-area:hover {
+  border-color: var(--color-accent-500);
+  background: var(--bg-surface);
+}
+
+.file-upload-area.drag-over {
+  border-color: var(--color-accent-500);
+  background: var(--color-accent-50);
+}
+
+.file-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-upload-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  pointer-events: none;
+}
+
+.upload-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--color-accent-500);
+}
+
+.upload-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0;
+}
+
+.upload-text-main {
+  color: var(--text-strong);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.upload-text-sub {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.upload-hint {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.file-selected {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-main);
+  border-radius: var(--radius-sm);
+}
+
+.file-icon {
+  width: 40px;
+  height: 40px;
+  color: var(--color-accent-500);
+  flex-shrink: 0;
+}
+
+.file-info {
+  flex: 1;
+  text-align: left;
+  min-width: 0;
+}
+
+.file-name {
+  color: var(--text-strong);
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-size {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.file-remove {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--danger);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.file-remove:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.file-remove svg {
+  width: 20px;
+  height: 20px;
+}
+
+.form-error {
+  color: var(--danger);
+  font-size: 0.875rem;
+  padding: 0.5rem;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--danger);
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn {
+  flex: 1;
+  padding: 0.875rem 1.5rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background: var(--color-accent-600);
+  color: var(--text-main-inversed);
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-700);
+  box-shadow: var(--shadow-elevated);
+}
+
+.btn-primary:disabled {
+  background: var(--border-main);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-strong);
+  border: 2px solid var(--border-main);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-surface-soft);
+  border-color: var(--border-strong);
+}
+
+.btn-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.upload-success {
+  text-align: center;
+  padding: 2rem;
+}
+
+.success-icon {
+  width: 64px;
+  height: 64px;
+  color: var(--success);
+  margin-bottom: 1rem;
+}
+
+.upload-success h3 {
+  color: var(--text-heading);
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.upload-success p {
+  color: var(--text-muted);
+  margin: 0 0 1.5rem 0;
+}
+
+@media (max-width: 640px) {
+  .upload-form-wrapper {
+    padding: 1.5rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .upload-title {
+    font-size: 1.5rem;
+  }
+}
+</style>
+
+<script>
+const form = document.getElementById('pdfUploadForm');
+const fileInput = document.getElementById('pdfFile');
+const dropZone = document.getElementById('dropZone');
+const fileSelected = document.getElementById('fileSelected');
+const fileName = document.getElementById('fileName');
+const fileSize = document.getElementById('fileSize');
+const removeFileBtn = document.getElementById('removeFile');
+const fileError = document.getElementById('fileError');
+const submitBtn = document.getElementById('submitBtn');
+const cancelBtn = document.getElementById('cancelBtn');
+const successMessage = document.getElementById('successMessage');
+const uploadAnotherBtn = document.getElementById('uploadAnotherBtn');
+
+let selectedFile = null;
+
+// Manejo de selección de archivo
+fileInput.addEventListener('change', handleFileSelect);
+
+function handleFileSelect(e) {
+  const file = e.target.files[0];
+  if (file) {
+    validateAndDisplayFile(file);
+  }
+}
+
+function validateAndDisplayFile(file) {
+  // Validar que sea PDF
+  if (file.type !== 'application/pdf') {
+    showError('Por favor selecciona un archivo PDF válido.');
+    return;
+  }
+
+  // Validar tamaño (10MB máximo)
+  const maxSize = 10 * 1024 * 1024; // 10MB en bytes
+  if (file.size > maxSize) {
+    showError('El archivo excede el tamaño máximo de 10MB.');
+    return;
+  }
+
+  // Todo correcto, mostrar el archivo
+  selectedFile = file;
+  hideError();
+  displaySelectedFile(file);
+}
+
+function displaySelectedFile(file) {
+  fileName.textContent = file.name;
+  fileSize.textContent = formatFileSize(file.size);
+  dropZone.querySelector('.file-upload-content').style.display = 'none';
+  fileSelected.style.display = 'flex';
+}
+
+function formatFileSize(bytes) {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+}
+
+function showError(message) {
+  fileError.textContent = message;
+  fileError.style.display = 'block';
+  dropZone.style.borderColor = 'var(--danger)';
+}
+
+function hideError() {
+  fileError.style.display = 'none';
+  dropZone.style.borderColor = '';
+}
+
+// Remover archivo
+removeFileBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  resetFileInput();
+});
+
+function resetFileInput() {
+  fileInput.value = '';
+  selectedFile = null;
+  fileSelected.style.display = 'none';
+  dropZone.querySelector('.file-upload-content').style.display = 'flex';
+  hideError();
+}
+
+// Drag and drop
+dropZone.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  dropZone.classList.add('drag-over');
+});
+
+dropZone.addEventListener('dragleave', () => {
+  dropZone.classList.remove('drag-over');
+});
+
+dropZone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+  
+  const file = e.dataTransfer.files[0];
+  if (file) {
+    fileInput.files = e.dataTransfer.files;
+    validateAndDisplayFile(file);
+  }
+});
+
+// Envío del formulario
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  if (!selectedFile) {
+    showError('Por favor selecciona un archivo PDF.');
+    return;
+  }
+
+  // Deshabilitar botón de envío
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<span>Subiendo...</span>';
+
+  // Simular subida (aquí iría tu lógica de subida real)
+  setTimeout(() => {
+    // Ocultar formulario y mostrar mensaje de éxito
+    form.style.display = 'none';
+    successMessage.style.display = 'block';
+    
+    // Aquí iría tu código para enviar el archivo al servidor
+    console.log('Archivo a subir:', selectedFile);
+    console.log('Título:', document.getElementById('documentTitle').value);
+    console.log('Descripción:', document.getElementById('documentDescription').value);
+  }, 2000);
+});
+
+// Botón cancelar
+cancelBtn.addEventListener('click', () => {
+  if (confirm('¿Estás seguro de que deseas cancelar? Se perderán los datos ingresados.')) {
+    form.reset();
+    resetFileInput();
+  }
+});
+
+// Subir otro documento
+uploadAnotherBtn.addEventListener('click', () => {
+  form.reset();
+  resetFileInput();
+  form.style.display = 'flex';
+  successMessage.style.display = 'none';
+  submitBtn.disabled = false;
+  submitBtn.innerHTML = '<svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Subir documento';
+});
+</script>

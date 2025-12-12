@@ -1,0 +1,770 @@
+/* ---------------------------
+   Variables globales (default)
+   --------------------------- */
+:root {
+    /* Brand / accents */
+    --color-accent-50: #eaf6ff;
+    --color-accent-100: #cbeffd;
+    --color-accent-200: #9fe1fb;
+    --color-accent-300: #66c9f8;
+    --color-accent-400: #2baef2;
+    --color-accent-500: #0b93e0;
+    --color-accent-600: #0574b8;
+    --color-accent-700: #045c93;
+    --color-accent-800: #03456e;
+    --color-accent-900: #012b44;
+
+    /* Semantic tokens */
+    --bg: #f5f5f5;
+    --bg-surface: #ffffff;
+    --bg-surface-soft: #f7f9fc;
+    --bg-surface-muted: #f0f3f8;
+
+    --text-main: #183153;
+    --text-main-inversed: #ffff;
+    --text-strong: #1e3a5f;
+    --text-heading: #1e293b;
+    --text-muted: #556070;
+
+    --border-main: #e0e0e0;
+    --border-strong: #1e3a5f;
+    --border-muted: #e3e8ef;
+
+    --success: #22c55e;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --draw: #94a3b8;
+
+    /* Shadows */
+    --shadow-soft: 0 2px 5px rgba(0, 0, 0, 0.05);
+    --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --shadow-elevated: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+    /* Toggles / neutrals */
+    --toggle-bg-off: #000000;
+    --toggle-knob: #ffffff;
+
+    /* Gradients */
+    --grad-header: linear-gradient(135deg, #183153 0%, #2d5f8d 100%);
+    
+    /* Signup specific */
+    --signup-right-bg: linear-gradient(135deg, #86efac 0%, #7dd3fc 50%, #a78bfa 100%);
+}
+
+/* ============= TEMA OSCURO ============= */
+:root[data-theme="dark"] {
+    --bg: #1a1625;
+    --bg-surface: #241c35;
+    --bg-surface-soft: #2d1b3d;
+    --bg-surface-muted: #1a1625;
+
+    --text-main: #e9d5ff;
+    --text-main-inversed: #1a1625;
+    --text-strong: #f3e8ff;
+    --text-heading: #faf5ff;
+    --text-muted: #c4b5fd;
+
+    --border-main: #3f2b5a;
+    --border-strong: #6b4ba1;
+
+    --color-accent-500: #a78bfa;
+    --color-accent-600: #8b5cf6;
+    --color-accent-700: #7c3aed;
+
+    --grad-header: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
+    
+    --shadow-soft: 0 2px 5px rgba(26, 22, 37, 0.7);
+    --shadow-card: 0 4px 12px rgba(26, 22, 37, 0.9);
+    --shadow-elevated: 0 4px 15px rgba(139, 92, 246, 0.2);
+
+    --toggle-bg-off: #3f2b5a;
+    --toggle-knob: #a78bfa;
+    
+    --signup-right-bg: linear-gradient(135deg, #4c3d5e 0%, #3d2d52 50%, #2d1f3e 80%, #1a1625 100%);
+}
+
+/* ==================== RESET ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: var(--bg);
+    color: var(--text-main);
+    line-height: 1.6;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+/* ==================== CONTAINER PRINCIPAL ==================== */
+.signup-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--bg);
+}
+
+/* ==================== PANEL IZQUIERDO ==================== */
+.signup-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background-color: var(--bg-surface);
+    overflow-y: auto;
+}
+
+.signup-content {
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Header con toggle */
+.signup-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--toggle-bg-off);
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: var(--toggle-knob);
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--color-accent-600);
+}
+
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
+/* Título */
+.signup-title {
+    margin-bottom: 30px;
+}
+
+.signup-title h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-heading);
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 20px;
+    flex: 1;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 0;
+}
+
+.form-row .form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--border-main);
+    border-radius: 8px;
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--color-accent-600);
+}
+
+.form-group input::placeholder {
+    color: var(--text-muted);
+}
+
+/* Form Options */
+.form-options {
+    margin-bottom: 25px;
+    font-size: 13px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    color: var(--text-main);
+}
+
+.checkbox-container input {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.terms-link {
+    color: var(--color-accent-600);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.terms-link:hover {
+    color: var(--color-accent-700);
+    text-decoration: underline;
+}
+
+/* Signup Button */
+.signup-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--color-accent-600);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+}
+
+.signup-btn:hover {
+    background-color: var(--color-accent-700);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(5, 116, 184, 0.3);
+}
+
+:root[data-theme="dark"] .signup-btn:hover {
+    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.5);
+}
+
+:root[data-theme="dark"] .signup-btn:focus {
+    outline: 2px solid var(--color-accent-500);
+    outline-offset: 2px;
+}
+
+/* Error Message */
+.error-message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    text-align: center;
+    display: none;
+}
+
+/* Login Link */
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.login-link a {
+    color: var(--color-accent-600);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Return to Login Button */
+.return-btn {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 56px;
+    height: 56px;
+    background-color: var(--color-accent-600);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(5, 116, 184, 0.3);
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+:root[data-theme="dark"] .return-btn {
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+}
+
+.return-btn:hover {
+    background-color: var(--color-accent-700);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(5, 116, 184, 0.4);
+}
+
+:root[data-theme="dark"] .return-btn:hover {
+    box-shadow: 0 6px 25px rgba(139, 92, 246, 0.6);
+}
+
+.return-btn:active {
+    transform: translateY(-1px);
+}
+
+.return-btn svg {
+    width: 28px;
+    height: 28px;
+}
+
+/* ==================== PANEL DERECHO ==================== */
+.signup-right {
+    flex: 1;
+    background: var(--signup-right-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.illustration {
+    position: relative;
+    width: 450px;
+    height: 450px;
+}
+
+/* Círculos decorativos */
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.5;
+}
+
+:root[data-theme="dark"] .circle {
+    opacity: 0.3;
+}
+
+.circle-1 {
+    width: 90px;
+    height: 90px;
+    background-color: rgba(134, 239, 172, 0.5);
+    top: 8%;
+    left: 12%;
+    animation: float 6s ease-in-out infinite;
+}
+
+:root[data-theme="dark"] .circle-1 {
+    background-color: rgba(167, 139, 250, 0.3);
+}
+
+.circle-2 {
+    width: 75px;
+    height: 75px;
+    background-color: rgba(125, 211, 252, 0.5);
+    top: 12%;
+    right: 18%;
+    animation: float 7s ease-in-out infinite 1s;
+}
+
+:root[data-theme="dark"] .circle-2 {
+    background-color: rgba(139, 92, 246, 0.3);
+}
+
+.circle-3 {
+    width: 65px;
+    height: 65px;
+    background-color: rgba(167, 139, 250, 0.5);
+    bottom: 18%;
+    left: 8%;
+    animation: float 5s ease-in-out infinite 2s;
+}
+
+:root[data-theme="dark"] .circle-3 {
+    background-color: rgba(124, 58, 237, 0.25);
+}
+
+.circle-4 {
+    width: 110px;
+    height: 110px;
+    background-color: rgba(134, 239, 172, 0.4);
+    bottom: 12%;
+    right: 12%;
+    animation: float 8s ease-in-out infinite 1.5s;
+}
+
+:root[data-theme="dark"] .circle-4 {
+    background-color: rgba(76, 61, 94, 0.4);
+}
+
+.circle-5 {
+    width: 80px;
+    height: 80px;
+    background-color: rgba(125, 211, 252, 0.4);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: float 6s ease-in-out infinite 0.5s;
+}
+
+:root[data-theme="dark"] .circle-5 {
+    background-color: rgba(139, 92, 246, 0.28);
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-20px) scale(1.05);
+    }
+}
+
+/* Figuras centrales - Personas en equipo */
+.main-figure {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    height: 250px;
+    z-index: 10;
+}
+
+.person {
+    position: absolute;
+}
+
+/* Persona 1 - Centro */
+.person-1 {
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+}
+
+.person-1 .person-head {
+    width: 70px;
+    height: 70px;
+    background-color: #1e3a8a;
+    border-radius: 50%;
+    position: relative;
+    margin: 0 auto;
+}
+
+:root[data-theme="dark"] .person-1 .person-head {
+    background-color: #6b4ba1;
+}
+
+.person-1 .person-hair {
+    width: 90px;
+    height: 90px;
+    background-color: #0f172a;
+    border-radius: 50% 50% 0 0;
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+:root[data-theme="dark"] .person-1 .person-hair {
+    background-color: #2d1b3d;
+}
+
+.person-1 .person-body {
+    width: 100px;
+    height: 80px;
+    background-color: #1e3a8a;
+    border-radius: 50% 50% 0 0;
+    margin: 0 auto;
+    margin-top: -8px;
+}
+
+:root[data-theme="dark"] .person-1 .person-body {
+    background-color: #6b4ba1;
+}
+
+/* Persona 2 - Izquierda */
+.person-2 {
+    left: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.person-2 .person-head {
+    width: 60px;
+    height: 60px;
+    background-color: #2563eb;
+    border-radius: 50%;
+    position: relative;
+    margin: 0 auto;
+}
+
+:root[data-theme="dark"] .person-2 .person-head {
+    background-color: #7c3aed;
+}
+
+.person-2 .person-hair {
+    width: 75px;
+    height: 75px;
+    background-color: #1e293b;
+    border-radius: 50% 50% 0 0;
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+:root[data-theme="dark"] .person-2 .person-hair {
+    background-color: #3f2b5a;
+}
+
+.person-2 .person-body {
+    width: 85px;
+    height: 70px;
+    background-color: #2563eb;
+    border-radius: 50% 50% 0 0;
+    margin: 0 auto;
+    margin-top: -8px;
+}
+
+:root[data-theme="dark"] .person-2 .person-body {
+    background-color: #7c3aed;
+}
+
+/* Persona 3 - Derecha */
+.person-3 {
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.person-3 .person-head {
+    width: 60px;
+    height: 60px;
+    background-color: #3b82f6;
+    border-radius: 50%;
+    position: relative;
+    margin: 0 auto;
+}
+
+:root[data-theme="dark"] .person-3 .person-head {
+    background-color: #8b5cf6;
+}
+
+.person-3 .person-hair {
+    width: 75px;
+    height: 75px;
+    background-color: #0f172a;
+    border-radius: 50% 50% 0 0;
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+:root[data-theme="dark"] .person-3 .person-hair {
+    background-color: #2d1b3d;
+}
+
+.person-3 .person-body {
+    width: 85px;
+    height: 70px;
+    background-color: #3b82f6;
+    border-radius: 50% 50% 0 0;
+    margin: 0 auto;
+    margin-top: -8px;
+}
+
+:root[data-theme="dark"] .person-3 .person-body {
+    background-color: #8b5cf6;
+}
+
+/* Icono de equipo */
+.team-icon {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    color: #22c55e;
+    animation: pulse 2s ease-in-out infinite;
+    z-index: 5;
+}
+
+:root[data-theme="dark"] .team-icon {
+    color: #86efac;
+}
+
+.team-icon svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 12px currentColor);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: translateX(-50%) scale(1.1);
+    }
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+    .signup-right {
+        display: none;
+    }
+    
+    .signup-left {
+        flex: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .signup-left {
+        padding: 20px;
+    }
+    
+    .signup-content {
+        max-width: 100%;
+    }
+    
+    .signup-title h1 {
+        font-size: 28px;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .return-btn {
+        width: 48px;
+        height: 48px;
+        bottom: 20px;
+        left: 20px;
+    }
+    
+    .return-btn svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .signup-header {
+        margin-bottom: 25px;
+    }
+    
+    .signup-title h1 {
+        font-size: 24px;
+    }
+    
+    .form-group input,
+    .signup-btn {
+        font-size: 13px;
+    }
+    
+    .return-btn {
+        width: 44px;
+        height: 44px;
+        bottom: 15px;
+        left: 15px;
+    }
+    
+    .return-btn svg {
+        width: 22px;
+        height: 22px;
+    }
+}
+/* ===== SPINNER ===== */
+.btn-spinner {
+    border: 3px solid rgba(255, 255, 255, 0.4);
+    border-top: 3px solid white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    animation: spin 0.8s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ===== VIBRACIÓN ===== */
+.btn-error-shake {
+    animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+    100% { transform: translateX(0); }
+}

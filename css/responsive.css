@@ -1,0 +1,408 @@
+/* ==========================================
+   RESPONSIVE DESIGN - ADMIN Y CAPITÁN
+   ========================================== */
+
+/* ==================== TABLET (max-width: 1024px) ==================== */
+@media (max-width: 1024px) {
+    .admin-container {
+        margin: 0 20px;
+    }
+
+    /* Ajustar grid principal a columna única en tablets */
+    .grid-1-5 {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    /* Reducir padding de títulos */
+    .convocatoria-title, 
+    .gestion-torneo-title {
+        padding: 0.875rem;
+    }
+
+    .controles div h1 {
+        font-size: clamp(1rem, 3vw, 1.25rem);
+    }
+
+    /* Ajustar grids de contenido */
+    .convocatoria-content, 
+    .gestion-torneo-content {
+        padding: 0.75rem;
+    }
+
+    .convocatoria-content-item,
+    .gestion-torneo-content-item {
+        padding: 0.875rem;
+    }
+
+    .convocatoria-content-item-description,
+    .gestion-torneo-content-item-description {
+        font-size: clamp(0.75rem, 2vw, 0.875rem);
+    }
+
+    /* Iconos más pequeños */
+    .convocatoria-content-item-icon svg,
+    .gestion-torneo-content-item-icon svg {
+        width: clamp(16px, 3vw, 18px);
+        height: clamp(16px, 3vw, 18px);
+    }
+
+    .content {
+        padding: 15px;
+    }
+}
+
+/* ==================== MÓVIL GRANDE (max-width: 768px) ==================== */
+@media (max-width: 768px) {
+    .admin-container {
+        margin: 0 15px;
+    }
+
+    /* Grid principal en columna */
+    .grid-1-5 {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    /* Reducir espacio de títulos */
+    .convocatoria-title, 
+    .gestion-torneo-title {
+        padding: 0.75rem;
+    }
+
+    .controles div h1 {
+        font-size: 1rem;
+        letter-spacing: 0.3px;
+    }
+
+    /* Grid 2x2 se mantiene en móvil */
+    .grid-2x2 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+
+    /* Grid 2x4 se mantiene en 2 columnas */
+    .grid-2x4 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+
+    /* Items más compactos */
+    .convocatoria-content-item,
+    .gestion-torneo-content-item {
+        padding: 0.75rem 0.5rem;
+        gap: 0.5rem;
+    }
+
+    .convocatoria-content-item-description,
+    .gestion-torneo-content-item-description {
+        font-size: 0.7rem;
+        line-height: 1.2;
+    }
+
+    /* Iconos más pequeños */
+    .convocatoria-content-item-icon,
+    .gestion-torneo-content-item-icon {
+        margin-bottom: 0.25rem;
+    }
+
+    .convocatoria-content-item-icon svg,
+    .gestion-torneo-content-item-icon svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .content {
+        padding: 12px;
+        min-height: 300px;
+    }
+
+    /* Ajustar gap general */
+    .grid-gap-3 {
+        gap: 0.75rem !important;
+    }
+
+    /* Sección de controles más compacta */
+    .controles {
+        gap: 1rem;
+    }
+
+    .convocatoria,
+    .gestion-torneo {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* ==================== MÓVIL PEQUEÑO (max-width: 480px) ==================== */
+@media (max-width: 480px) {
+    .admin-container {
+        margin: 0 10px;
+    }
+
+    /* Pantalla admin con menos padding */
+    .admin-pantalla {
+        width: 100vw !important;
+        padding: 0;
+    }
+
+    /* Títulos aún más compactos */
+    .convocatoria-title, 
+    .gestion-torneo-title {
+        padding: 0.625rem;
+    }
+
+    .controles div h1 {
+        font-size: 0.875rem;
+        letter-spacing: 0.2px;
+    }
+
+    /* OPCIÓN 1: Mantener 2 columnas pero más compacto */
+    .grid-2x2,
+    .grid-2x4 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.375rem;
+    }
+
+    /* Items muy compactos */
+    .convocatoria-content-item,
+    .gestion-torneo-content-item {
+        padding: 0.625rem 0.375rem;
+        gap: 0.375rem;
+    }
+
+    .convocatoria-content-item-description,
+    .gestion-torneo-content-item-description {
+        font-size: 0.625rem;
+        line-height: 1.1;
+        word-break: break-word;
+        hyphens: auto;
+    }
+
+    /* Iconos pequeños */
+    .convocatoria-content-item-icon svg,
+    .gestion-torneo-content-item-icon svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .content {
+        padding: 10px;
+        min-height: 250px;
+        font-size: 0.875rem;
+    }
+
+    /* Reducir gaps generales */
+    .grid-gap-3 {
+        gap: 0.5rem !important;
+    }
+
+    .grid-gap-2 {
+        gap: 0.375rem !important;
+    }
+
+    /* Controles más compactos */
+    .controles {
+        gap: 0.75rem;
+    }
+
+    .d-flex.flex-column {
+        gap: 0.5rem;
+    }
+}
+
+/* ==================== MÓVIL MUY PEQUEÑO (max-width: 360px) ==================== */
+@media (max-width: 360px) {
+    .admin-container {
+        margin: 0 8px;
+    }
+
+    /* OPCIÓN 2: Cambiar a 1 columna en pantallas muy pequeñas */
+    .grid-2x2 {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, auto);
+    }
+
+    .grid-2x4 {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(8, auto);
+    }
+
+    /* Items en columna única más grandes */
+    .convocatoria-content-item,
+    .gestion-torneo-content-item {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 0.75rem;
+        padding: 0.75rem;
+        text-align: left;
+    }
+
+    .convocatoria-content-item-icon,
+    .gestion-torneo-content-item-icon {
+        margin-bottom: 0;
+    }
+
+    .convocatoria-content-item-description,
+    .gestion-torneo-content-item-description {
+        font-size: 0.75rem;
+        line-height: 1.3;
+    }
+
+    .controles div h1 {
+        font-size: 0.8125rem;
+    }
+}
+
+/* ==================== LANDSCAPE MÓVIL ==================== */
+@media (max-width: 768px) and (orientation: landscape) {
+    .admin-container {
+        margin: 0 15px;
+    }
+
+    .grid-1-5 {
+        grid-template-columns: 1fr 2fr;
+        gap: 1rem;
+    }
+
+    .convocatoria-content-item,
+    .gestion-torneo-content-item {
+        padding: 0.625rem 0.5rem;
+    }
+
+    .convocatoria-content-item-description,
+    .gestion-torneo-content-item-description {
+        font-size: 0.7rem;
+    }
+
+    .content {
+        padding: 12px;
+    }
+}
+
+/* ==================== AJUSTES DE HOVER EN TÁCTIL ==================== */
+@media (hover: none) and (pointer: coarse) {
+    .convocatoria-content-item:hover,
+    .gestion-torneo-content-item:hover {
+        transform: none;
+    }
+
+    /* Mejorar feedback táctil con active */
+    .convocatoria-content-item:active,
+    .gestion-torneo-content-item:active {
+        transform: scale(0.98);
+        opacity: 0.9;
+    }
+}
+
+/* ==================== SCROLLBAR HORIZONTAL PARA CONTENIDO DESBORDADO ==================== */
+@media (max-width: 768px) {
+    .content {
+        overflow-x: auto;
+    }
+
+    .content::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .content::-webkit-scrollbar-track {
+        background: var(--bg-surface-muted);
+        border-radius: 10px;
+    }
+
+    .content::-webkit-scrollbar-thumb {
+        background: var(--color-accent-600);
+        border-radius: 10px;
+    }
+}
+
+/* ==================== ALTA RESOLUCIÓN / ZOOM ==================== */
+@media (min-resolution: 120dpi) {
+    .convocatoria-content-item-description,
+    .gestion-torneo-content-item-description {
+        font-size: calc(0.875rem * 0.95);
+    }
+}
+
+@media (min-resolution: 150dpi) {
+    .convocatoria-content-item-description,
+    .gestion-torneo-content-item-description {
+        font-size: calc(0.875rem * 0.9);
+    }
+}
+
+/* ==================== ACCESIBILIDAD - MODO REDUCCIÓN DE MOVIMIENTO ==================== */
+@media (prefers-reduced-motion: reduce) {
+    .convocatoria-content-item,
+    .gestion-torneo-content-item,
+    .content {
+        transition: none;
+    }
+
+    .convocatoria-content-item:hover,
+    .gestion-torneo-content-item:hover {
+        transform: none;
+    }
+}
+
+/* ==================== UTILIDADES RESPONSIVE ADICIONALES ==================== */
+
+/* Ocultar elementos en móvil si es necesario */
+.hide-mobile {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .hide-mobile {
+        display: none !important;
+    }
+}
+
+/* Mostrar solo en móvil */
+.show-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .show-mobile {
+        display: block !important;
+    }
+}
+
+/* Stack vertical en móvil */
+@media (max-width: 768px) {
+    .stack-mobile {
+        flex-direction: column !important;
+    }
+}
+
+/* ==================== FIX PARA OVERFLOW EN MÓVIL ==================== */
+@media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .admin-pantalla {
+        overflow-x: hidden;
+    }
+
+    /* Asegurar que grid no cause overflow */
+    .grid-1-5 > * {
+        min-width: 0;
+        max-width: 100%;
+    }
+}
+
+/* ==================== AJUSTES ESPECÍFICOS PARA iOS ==================== */
+@supports (-webkit-touch-callout: none) {
+    .convocatoria-content-item,
+    .gestion-torneo-content-item {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 768px) {
+        .content {
+            -webkit-overflow-scrolling: touch;
+        }
+    }
+}

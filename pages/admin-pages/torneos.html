@@ -1,0 +1,530 @@
+<style>
+    /* Estilos SOLO para el módulo de torneos */
+    .torneos-page {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        color: var(--text-main);
+    }
+
+    .torneos-page .torn-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    .torneos-page .torn-header {
+        background: var(--bg-surface);
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        margin-bottom: 2rem;
+        border: 1px solid var(--border-muted);
+    }
+
+    .torneos-page .torn-title {
+        color: var(--text-heading);
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .torneos-page .torn-subtitle {
+        color: var(--text-muted);
+        font-size: 1rem;
+    }
+
+    .torneos-page .filter-section {
+        background: var(--bg-surface);
+        padding: 1.5rem;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        margin-bottom: 2rem;
+        border: 1px solid var(--border-muted);
+    }
+
+    .torneos-page .filter-grid {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 1rem;
+        align-items: end;
+    }
+
+    .torneos-page .form-group {
+        margin-bottom: 0;
+    }
+
+    .torneos-page .form-label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-strong);
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .torneos-page .form-control {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 2px solid var(--border-main);
+        border-radius: var(--radius-sm);
+        background: var(--bg-surface);
+        color: var(--text-main);
+        font-size: 1rem;
+        transition: all 0.3s;
+    }
+
+    .torneos-page .form-control:focus {
+        outline: none;
+        border-color: var(--color-accent-600);
+        box-shadow: 0 0 0 3px rgba(5, 116, 184, 0.1);
+    }
+
+    .torneos-page .table-wrapper {
+        background: var(--bg-surface);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        overflow: hidden;
+        border: 1px solid var(--border-muted);
+        margin-bottom: 2rem;
+    }
+
+    .torneos-page .table-header {
+        background: var(--bg-surface-soft);
+        padding: 1.5rem;
+        border-bottom: 2px solid var(--border-main);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .torneos-page .table-title {
+        color: var(--text-heading);
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .torneos-page .table-container {
+        overflow-x: auto;
+    }
+
+    .torneos-page table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .torneos-page thead {
+        background: var(--bg-surface-soft);
+        border-bottom: 2px solid var(--border-main);
+    }
+
+    .torneos-page th {
+        padding: 1rem;
+        text-align: left;
+        font-weight: 700;
+        color: var(--text-strong);
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .torneos-page tbody tr {
+        border-bottom: 1px solid var(--border-muted);
+        transition: background 0.2s ease;
+    }
+
+    .torneos-page tbody tr:hover {
+        background: var(--bg-surface-soft);
+    }
+
+    .torneos-page td {
+        padding: 1.25rem 1rem;
+        color: var(--text-main);
+        font-size: 0.95rem;
+    }
+
+    .torneos-page .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.875rem;
+        border-radius: var(--radius-sm);
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    .torneos-page .status-inactivo {
+        background: rgba(107, 114, 128, 0.1);
+        color: #6b7280;
+        border: 1px solid #6b7280;
+    }
+
+    .torneos-page .status-inscripcion {
+        background: rgba(59, 130, 246, 0.1);
+        color: #1e40af;
+        border: 1px solid #3b82f6;
+    }
+
+    .torneos-page .status-en_curso {
+        background: rgba(34, 197, 94, 0.1);
+        color: var(--success);
+        border: 1px solid var(--success);
+    }
+
+    .torneos-page .status-finalizado {
+        background: rgba(245, 158, 11, 0.1);
+        color: var(--warning);
+        border: 1px solid var(--warning);
+    }
+
+    .torneos-page .status-archivado {
+        background: rgba(156, 163, 175, 0.1);
+        color: #4b5563;
+        border: 1px solid #9ca3af;
+    }
+
+    .torneos-page .btn {
+        padding: 0.875rem 1.5rem;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        white-space: nowrap;
+    }
+
+    .torneos-page .btn-small {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    .torneos-page .btn-primary {
+        background: var(--color-accent-600);
+        color: white;
+    }
+
+    .torneos-page .btn-primary:hover:not(:disabled) {
+        background: var(--color-accent-700);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-soft);
+    }
+
+    .torneos-page .btn-secondary {
+        background: #6b7280;
+        color: white;
+    }
+
+    .torneos-page .btn-secondary:hover:not(:disabled) {
+        background: #4b5563;
+        transform: translateY(-2px);
+    }
+
+    .torneos-page .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .torneos-page .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .torneos-page .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        animation: fadeIn 0.3s;
+    }
+
+    .torneos-page .modal-content {
+        background: var(--bg-surface);
+        margin: 5% auto;
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        max-width: 600px;
+        box-shadow: var(--shadow-card);
+        animation: slideDown 0.3s;
+        border: 1px solid var(--border-muted);
+    }
+
+    .torneos-page .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--border-main);
+    }
+
+    .torneos-page .modal-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-heading);
+    }
+
+    .torneos-page .close-btn {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--text-muted);
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--radius-sm);
+        transition: all 0.2s;
+    }
+
+    .torneos-page .close-btn:hover {
+        background: var(--bg-surface-soft);
+        color: var(--text-heading);
+    }
+
+    .torneos-page .modal-body {
+        margin-bottom: 1.5rem;
+    }
+
+    .torneos-page .modal-footer {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+    }
+
+    .torneos-page .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .torneos-page .loading-container {
+        text-align: center;
+        padding: 3rem;
+    }
+
+    .torneos-page .spinner {
+        border: 3px solid var(--border-main);
+        border-top: 3px solid var(--color-accent-500);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: torn-spin 1s linear infinite;
+        margin: 0 auto 1rem;
+    }
+
+    @keyframes torn-spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .torneos-page .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+    }
+
+    .torneos-page .empty-title {
+        color: var(--text-heading);
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .torneos-page .empty-text {
+        color: var(--text-muted);
+        font-size: 1rem;
+    }
+
+    .torneos-page #alert-container {
+        margin-bottom: 1rem;
+    }
+
+    .torneos-page .alert {
+        padding: 1rem 1.5rem;
+        border-radius: var(--radius-sm);
+        margin-bottom: 1rem;
+        font-weight: 500;
+        border-left: 4px solid;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        animation: slideIn 0.3s;
+    }
+
+    .torneos-page .alert-success {
+        background: rgba(34, 197, 94, 0.1);
+        color: #065f46;
+        border-color: #10b981;
+    }
+
+    .torneos-page .alert-danger {
+        background: rgba(239, 68, 68, 0.1);
+        color: #991b1b;
+        border-color: #ef4444;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+        from { transform: translateY(-50px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes slideIn {
+        from { transform: translateX(-100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+        .torneos-page .torn-container {
+            padding: 1rem;
+        }
+
+        .torneos-page .filter-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .torneos-page .form-row {
+            grid-template-columns: 1fr;
+        }
+
+        .torneos-page .modal-content {
+            margin: 10% auto;
+            padding: 1.5rem;
+            max-width: 90%;
+        }
+    }
+</style>
+
+<div class="torneos-page">
+    <div class="torn-container">
+        <!-- Header -->
+        <div class="torn-header">
+            <h1 class="torn-title">Gestión de Torneos</h1>
+            <p class="torn-subtitle">Administra y visualiza todos los torneos registrados</p>
+        </div>
+
+        <!-- Alert Container -->
+        <div id="alert-container"></div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-grid">
+                <div class="form-group">
+                    <label class="form-label" for="filtro-estado">Filtrar por Estado</label>
+                    <select id="filtro-estado" class="form-control">
+                        <option value="">Todos los estados</option>
+                        <option value="inactivo">Inactivo</option>
+                        <option value="inscripcion">Inscripción</option>
+                        <option value="en_curso">En Curso</option>
+                        <option value="finalizado">Finalizado</option>
+                        <option value="archivado">Archivado</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" id="btn-nuevo-torneo">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M12 5v14M5 12h14"/>
+                    </svg>
+                    Nuevo Torneo
+                </button>
+            </div>
+        </div>
+
+        <!-- Torneos Table -->
+        <div class="table-wrapper">
+            <div class="table-header">
+                <h2 class="table-title">Torneos Registrados</h2>
+            </div>
+            <div class="table-container" id="torneos-table-container">
+                <!-- Loading state -->
+                <div class="loading-container" id="loading-state">
+                    <div class="spinner"></div>
+                    <p class="loading-text">Cargando torneos...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Cambiar Estado -->
+        <div id="modal-cambiar-estado" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Cambiar Estado del Torneo</h3>
+                    <button class="close-btn" id="close-estado-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label" for="torneo-nombre-display">Torneo</label>
+                        <input type="text" id="torneo-nombre-display" class="form-control" readonly>
+                    </div>
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <label class="form-label" for="nuevo-estado">Nuevo Estado</label>
+                        <select id="nuevo-estado" class="form-control">
+                            <option value="inactivo">Inactivo</option>
+                            <option value="inscripcion">Inscripción</option>
+                            <option value="en_curso">En Curso</option>
+                            <option value="finalizado">Finalizado</option>
+                            <option value="archivado">Archivado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" id="cancel-estado-btn">Cancelar</button>
+                    <button class="btn btn-primary" id="confirm-estado-btn">Confirmar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Nuevo Torneo -->
+        <div id="modal-nuevo-torneo" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Crear Nuevo Torneo</h3>
+                    <button class="close-btn" id="close-nuevo-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="form-nuevo-torneo">
+                        <div class="form-group">
+                            <label class="form-label" for="nombre-torneo">Nombre del Torneo *</label>
+                            <input type="text" id="nombre-torneo" class="form-control" required 
+                                   placeholder="Ej: Liga ESCOM 2025">
+                        </div>
+                        <div class="form-row" style="margin-top: 1rem;">
+                            <div class="form-group">
+                                <label class="form-label" for="temporada-torneo">Temporada *</label>
+                                <input type="text" id="temporada-torneo" class="form-control" required 
+                                       placeholder="Ej: 2025-1">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="tipo-futbol">Tipo de Fútbol *</label>
+                                <select id="tipo-futbol" class="form-control" required>
+                                    <option value="futbol11">Fútbol 11</option>
+                                    <option value="futbol7">Fútbol 7</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" id="cancel-nuevo-btn">Cancelar</button>
+                    <button class="btn btn-primary" id="confirm-nuevo-btn">Crear Torneo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/torneos.js"></script>

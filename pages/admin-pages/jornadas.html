@@ -1,0 +1,631 @@
+<style>
+    /* ============================================
+   ESTILOS PARA EL MÓDULO DE JORNADAS
+   ============================================ */
+
+/* Estilos SOLO para el módulo de jornadas */
+.jornadas-page {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    color: var(--text-main);
+}
+
+.jornadas-page .jorn-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.jornadas-page .jorn-header {
+    background: var(--bg-surface);
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-muted);
+}
+
+.jornadas-page .jorn-title {
+    color: var(--text-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.jornadas-page .jorn-subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+.jornadas-page .filter-section {
+    background: var(--bg-surface);
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-muted);
+}
+
+.jornadas-page .filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    align-items: end;
+}
+
+.jornadas-page .form-group {
+    margin-bottom: 0;
+}
+
+.jornadas-page .form-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-strong);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.jornadas-page .form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border-main);
+    border-radius: var(--radius-sm);
+    background: var(--bg-surface);
+    color: var(--text-main);
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.jornadas-page .form-control:focus {
+    outline: none;
+    border-color: var(--color-accent-600);
+    box-shadow: 0 0 0 3px rgba(5, 116, 184, 0.1);
+}
+
+.jornadas-page .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.jornadas-page .stat-card {
+    background: var(--bg-surface-soft);
+    padding: 1.5rem;
+    border-radius: var(--radius-sm);
+    border-left: 4px solid var(--color-accent-500);
+}
+
+.jornadas-page .stat-label {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.jornadas-page .stat-value {
+    color: var(--text-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+}
+
+.jornadas-page .table-wrapper {
+    background: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    border: 1px solid var(--border-muted);
+    margin-bottom: 2rem;
+}
+
+.jornadas-page .table-header {
+    background: var(--bg-surface-soft);
+    padding: 1.5rem;
+    border-bottom: 2px solid var(--border-main);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.jornadas-page .table-title {
+    color: var(--text-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.jornadas-page .table-container {
+    overflow-x: auto;
+}
+
+.jornadas-page table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.jornadas-page thead {
+    background: var(--bg-surface-soft);
+    border-bottom: 2px solid var(--border-main);
+}
+
+.jornadas-page th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 700;
+    color: var(--text-strong);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.jornadas-page tbody tr {
+    border-bottom: 1px solid var(--border-muted);
+    transition: background 0.2s ease;
+}
+
+.jornadas-page tbody tr:hover {
+    background: var(--bg-surface-soft);
+}
+
+.jornadas-page tbody tr:last-child {
+    border-bottom: none;
+}
+
+.jornadas-page td {
+    padding: 1.25rem 1rem;
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+
+.jornadas-page .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.875rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.jornadas-page .status-preinscrito {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--warning);
+    border: 1px solid var(--warning);
+}
+
+.jornadas-page .status-confirmado {
+    background: rgba(34, 197, 94, 0.1);
+    color: var(--success);
+    border: 1px solid var(--success);
+}
+
+.jornadas-page .status-descalificado {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+    border: 1px solid var(--danger);
+}
+
+.jornadas-page .status-eliminado {
+    background: rgba(107, 114, 128, 0.1);
+    color: #6b7280;
+    border: 1px solid #6b7280;
+}
+
+.jornadas-page .btn {
+    padding: 0.875rem 1.5rem;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+.jornadas-page .btn-small {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+}
+
+.jornadas-page .btn-primary {
+    background: var(--color-accent-600);
+    color: white;
+}
+
+.jornadas-page .btn-primary:hover:not(:disabled) {
+    background: var(--color-accent-700);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+}
+
+.jornadas-page .btn-success {
+    background: var(--success);
+    color: white;
+}
+
+.jornadas-page .btn-success:hover:not(:disabled) {
+    background: #059669;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+}
+
+.jornadas-page .btn-warning {
+    background: var(--warning);
+    color: white;
+}
+
+.jornadas-page .btn-warning:hover:not(:disabled) {
+    background: #d97706;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+}
+
+.jornadas-page .btn-danger {
+    background: var(--danger);
+    color: white;
+}
+
+.jornadas-page .btn-danger:hover:not(:disabled) {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+}
+
+.jornadas-page .btn-secondary {
+    background: #6b7280;
+    color: white;
+}
+
+.jornadas-page .btn-secondary:hover:not(:disabled) {
+    background: #4b5563;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+}
+
+.jornadas-page .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.jornadas-page .action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.jornadas-page .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s;
+}
+
+.jornadas-page .modal-content {
+    background: var(--bg-surface);
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    max-width: 600px;
+    box-shadow: var(--shadow-card);
+    animation: slideDown 0.3s;
+    border: 1px solid var(--border-muted);
+}
+
+.jornadas-page .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-main);
+}
+
+.jornadas-page .modal-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-heading);
+}
+
+.jornadas-page .close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s;
+}
+
+.jornadas-page .close-btn:hover {
+    background: var(--bg-surface-soft);
+    color: var(--text-heading);
+}
+
+.jornadas-page .modal-body {
+    margin-bottom: 1.5rem;
+}
+
+.jornadas-page .modal-body p {
+    color: var(--text-main);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.jornadas-page .modal-footer {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.jornadas-page .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.jornadas-page .loading-container {
+    text-align: center;
+    padding: 3rem;
+}
+
+.jornadas-page .spinner {
+    border: 3px solid var(--border-main);
+    border-top: 3px solid var(--color-accent-500);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: jorn-spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes jorn-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.jornadas-page .loading-text {
+    color: var(--text-muted);
+}
+
+.jornadas-page .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.jornadas-page .empty-icon {
+    width: 80px;
+    height: 80px;
+    color: var(--text-muted);
+    margin: 0 auto 1.5rem;
+}
+
+.jornadas-page .empty-title {
+    color: var(--text-heading);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.jornadas-page .empty-text {
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+.jornadas-page #alert-container {
+    margin-bottom: 1rem;
+}
+
+.jornadas-page .alert {
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1rem;
+    font-weight: 500;
+    border-left: 4px solid;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    animation: slideIn 0.3s;
+}
+
+.jornadas-page .alert-info {
+    background: rgba(59, 130, 246, 0.1);
+    color: #1e40af;
+    border-color: #3b82f6;
+}
+
+.jornadas-page .alert-success {
+    background: rgba(34, 197, 94, 0.1);
+    color: #065f46;
+    border-color: #10b981;
+}
+
+.jornadas-page .alert-warning {
+    background: rgba(245, 158, 11, 0.1);
+    color: #92400e;
+    border-color: #f59e0b;
+}
+
+.jornadas-page .alert-danger {
+    background: rgba(239, 68, 68, 0.1);
+    color: #991b1b;
+    border-color: #ef4444;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .jornadas-page .jorn-container {
+        padding: 1rem;
+    }
+
+    .jornadas-page .jorn-header {
+        padding: 1.5rem;
+    }
+
+    .jornadas-page .jorn-title {
+        font-size: 1.5rem;
+    }
+
+    .jornadas-page .filter-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .jornadas-page .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .jornadas-page .table-container {
+        font-size: 0.875rem;
+    }
+
+    .jornadas-page th,
+    .jornadas-page td {
+        padding: 0.75rem 0.5rem;
+    }
+
+    .jornadas-page .action-buttons {
+        flex-direction: column;
+    }
+
+    .jornadas-page .action-buttons .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .jornadas-page .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .jornadas-page .modal-content {
+        margin: 10% auto;
+        padding: 1.5rem;
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .jornadas-page .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<div class="jornadas-page">
+    <div class="jorn-container">
+        <!-- Alertas -->
+        <div id="alert-container"></div>
+
+        <!-- Header con filtros -->
+        <div class="jorn-header">
+            <h1 class="jorn-title">Gestión de Jornadas</h1>
+            <p class="jorn-subtitle">Visualiza y gestiona los partidos de cada jornada</p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+                <div class="form-group">
+                    <label class="form-label" for="filtro-torneo">Tipo de Fútbol</label>
+                    <select class="form-control" id="filtro-torneo">
+                        <option value="">Cargando torneos...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="filtro-jornada">Jornada</label>
+                    <select class="form-control" id="filtro-jornada">
+                        <option value="">Selecciona un torneo primero</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="display: flex; align-items: flex-end;">
+                    <button class="btn btn-primary" id="btn-filtrar" style="width: 100%;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                        Buscar Partidos
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenedor de partidos -->
+        <div id="partidos-container">
+            <div class="empty-state">
+                <svg class="empty-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <h3 class="empty-title">Selecciona un torneo y jornada</h3>
+                <p class="empty-text">Elige los filtros de arriba para visualizar los partidos</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para editar fecha/hora -->
+<div id="modal-editar-partido" class="jornadas-page">
+    <div class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Editar Fecha y Hora del Partido</h2>
+                <button class="close-btn" onclick="cerrarModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Partido</label>
+                    <p id="modal-partido-info" style="color: var(--text-main); font-weight: 600;"></p>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="modal-fecha">Nueva Fecha</label>
+                    <input type="date" class="form-control" id="modal-fecha" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="modal-hora">Nueva Hora</label>
+                    <input type="time" class="form-control" id="modal-hora" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="modal-lugar">Lugar</label>
+                    <input type="text" class="form-control" id="modal-lugar" value="Cancha ESCOM" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="cerrarModal()">Cancelar</button>
+                <button class="btn btn-primary" id="btn-guardar-cambios">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/jornadas.js"></script>

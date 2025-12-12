@@ -1,0 +1,300 @@
+<div class="jornadas-capitan-page">
+    <div class="jornadas-container">
+        <!-- Header -->
+        <div class="jornadas-header">
+            <h1 class="jornadas-title">Calendario de Partidos</h1>
+            <p class="jornadas-subtitle">Consulta los partidos de tu equipo</p>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading-jornadas" class="loading-container">
+            <div class="spinner"></div>
+            <p class="loading-text">Cargando calendario...</p>
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-jornadas" class="empty-state" style="display: none;">
+            <svg class="empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <h2 class="empty-title">No hay partidos programados</h2>
+            <p class="empty-text">Aún no tienes partidos registrados en el sistema.</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="error-jornadas" class="error-state" style="display: none;">
+            <svg class="error-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <h2 class="error-title">Error al cargar los partidos</h2>
+            <p class="error-text" id="error-message">Ocurrió un error al cargar la información.</p>
+        </div>
+
+        <!-- Partidos Container -->
+        <div id="partidos-container" style="display: none;">
+            <!-- Los partidos se cargarán aquí dinámicamente -->
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Estilos para la página de jornadas del capitán */
+    .jornadas-capitan-page {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        color: var(--text-main);
+    }
+
+    .jornadas-capitan-page .jornadas-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    .jornadas-capitan-page .jornadas-header {
+        background: var(--bg-surface);
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        margin-bottom: 2rem;
+        border: 1px solid var(--border-muted);
+    }
+
+    .jornadas-capitan-page .jornadas-title {
+        color: var(--text-heading);
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .jornadas-capitan-page .jornadas-subtitle {
+        color: var(--text-muted);
+        font-size: 1rem;
+    }
+
+    .jornadas-capitan-page .loading-container {
+        text-align: center;
+        padding: 3rem;
+        background: var(--bg-surface);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+    }
+
+    .jornadas-capitan-page .spinner {
+        border: 3px solid var(--border-main);
+        border-top: 3px solid var(--color-accent-500);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: jornadas-spin 1s linear infinite;
+        margin: 0 auto 1rem;
+    }
+
+    @keyframes jornadas-spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .jornadas-capitan-page .loading-text {
+        color: var(--text-muted);
+        font-size: 1rem;
+    }
+
+    .jornadas-capitan-page .empty-state,
+    .jornadas-capitan-page .error-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: var(--bg-surface);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        border: 1px solid var(--border-muted);
+    }
+
+    .jornadas-capitan-page .empty-icon,
+    .jornadas-capitan-page .error-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 1.5rem;
+        color: var(--text-muted);
+    }
+
+    .jornadas-capitan-page .empty-title,
+    .jornadas-capitan-page .error-title {
+        color: var(--text-heading);
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .jornadas-capitan-page .empty-text,
+    .jornadas-capitan-page .error-text {
+        color: var(--text-muted);
+        font-size: 1rem;
+    }
+
+    /* Jornada Card */
+    .jornadas-capitan-page .jornada-card {
+        background: var(--bg-surface);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        border: 1px solid var(--border-muted);
+        margin-bottom: 2rem;
+        overflow: hidden;
+    }
+
+    .jornadas-capitan-page .jornada-header {
+        background: linear-gradient(135deg, var(--color-accent-500), var(--color-accent-600));
+        padding: 1.5rem 2rem;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .jornadas-capitan-page .jornada-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .jornadas-capitan-page .jornada-numero {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius-sm);
+        font-weight: 700;
+        font-size: 1.1rem;
+    }
+
+    .jornadas-capitan-page .jornada-nombre {
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    .jornadas-capitan-page .jornada-body {
+        padding: 0;
+    }
+
+    /* Partido Item */
+    .jornadas-capitan-page .partido-item {
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--border-muted);
+        transition: background-color 0.2s ease;
+    }
+
+    .jornadas-capitan-page .partido-item:last-child {
+        border-bottom: none;
+    }
+
+    .jornadas-capitan-page .partido-item:hover {
+        background: var(--bg-surface-soft);
+    }
+
+    .jornadas-capitan-page .partido-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .jornadas-capitan-page .partido-equipos {
+        flex: 1;
+        min-width: 250px;
+    }
+
+    .jornadas-capitan-page .vs-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 1.1rem;
+    }
+
+    .jornadas-capitan-page .equipo-nombre {
+        color: var(--text-heading);
+        font-weight: 600;
+    }
+
+    .jornadas-capitan-page .equipo-local {
+        color: var(--color-accent-500);
+    }
+
+    .jornadas-capitan-page .vs-text {
+        color: var(--text-muted);
+        font-weight: 700;
+        font-size: 0.9rem;
+    }
+
+    .jornadas-capitan-page .partido-detalles {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .jornadas-capitan-page .detalle-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+    }
+
+    .jornadas-capitan-page .detalle-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .jornadas-capitan-page .rival-badge {
+        background: rgba(99, 102, 241, 0.1);
+        color: #6366f1;
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius-sm);
+        font-size: 0.9rem;
+        font-weight: 600;
+        border: 1px solid #6366f1;
+    }
+
+    @media (max-width: 768px) {
+        .jornadas-capitan-page .jornadas-container {
+            padding: 1rem;
+        }
+
+        .jornadas-capitan-page .jornadas-header {
+            padding: 1.5rem;
+        }
+
+        .jornadas-capitan-page .jornadas-title {
+            font-size: 1.5rem;
+        }
+
+        .jornadas-capitan-page .jornada-header {
+            padding: 1rem 1.5rem;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .jornadas-capitan-page .partido-item {
+            padding: 1rem 1.5rem;
+        }
+
+        .jornadas-capitan-page .partido-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .jornadas-capitan-page .vs-container {
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: flex-start;
+        }
+
+        .jornadas-capitan-page .partido-detalles {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+    }
+</style>
+
+<script src="../js/jornadas-capitan.js"></script>

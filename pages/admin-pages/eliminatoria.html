@@ -1,0 +1,462 @@
+<div class="eliminatoria-page">
+    <div class="elim-container">
+        <!-- Header Section -->
+        <div class="elim-header">
+            <h1 class="elim-title">Gestión de Fase Eliminatoria</h1>
+            <p class="elim-subtitle">Administra los equipos clasificados y genera la fase de eliminación</p>
+        </div>
+
+        <!-- Alert Container -->
+        <div id="alert-container"></div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-grid">
+                <div class="form-group">
+                    <label for="filter-torneo" class="form-label">Seleccionar Torneo</label>
+                    <select id="filter-torneo" class="form-control">
+                        <option value="">Cargando torneos...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="filter-categoria" class="form-label">Categoría</label>
+                    <select id="filter-categoria" class="form-control">
+                        <option value="">Todas las categorías</option>
+                        <option value="futbol11">Fútbol 11</option>
+                        <option value="futbol7">Fútbol 7</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Banner -->
+        <div id="status-banner" class="status-banner" style="display: none;">
+            <div class="status-content">
+                <span class="status-icon">ℹ️</span>
+                <div class="status-text">
+                    <strong id="status-title">Estado del Torneo</strong>
+                    <p id="status-message">Cargando información...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Section -->
+        <div class="table-wrapper">
+            <div class="table-header">
+                <h2 class="table-title">Top 8 - Equipos Clasificados</h2>
+                <button id="btn-generar-eliminatoria" class="btn btn-primary" disabled>
+                    <span>⚡</span> Generar Fase Eliminatoria
+                </button>
+            </div>
+            <div class="table-container" id="table-content">
+                <div class="loading-container">
+                    <div class="spinner"></div>
+                    <p>Cargando equipos clasificados...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Info -->
+        <div class="info-card">
+            <h3 class="info-title">ℹ️ Información Importante</h3>
+            <ul class="info-list">
+                <li>Solo los 8 mejores equipos de cada torneo clasifican a la fase eliminatoria</li>
+                <li>La fase eliminatoria se genera automáticamente cuando todos los partidos de la última jornada estén finalizados</li>
+                <li>Una vez generada, la fase eliminatoria no puede revertirse</li>
+                <li>Los emparejamientos se realizan según la posición final en la tabla (1° vs 8°, 2° vs 7°, etc.)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<style>
+    .eliminatoria-page {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        color: var(--text-main);
+    }
+
+    .eliminatoria-page .elim-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    .eliminatoria-page .elim-header {
+        background: var(--bg-surface);
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        margin-bottom: 2rem;
+        border: 1px solid var(--border-muted);
+    }
+
+    .eliminatoria-page .elim-title {
+        color: var(--text-heading);
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .eliminatoria-page .elim-subtitle {
+        color: var(--text-muted);
+        font-size: 1rem;
+        margin: 0;
+    }
+
+    .eliminatoria-page .filter-section {
+        background: var(--bg-surface);
+        padding: 1.5rem;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        margin-bottom: 2rem;
+        border: 1px solid var(--border-muted);
+    }
+
+    .eliminatoria-page .filter-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        align-items: end;
+    }
+
+    .eliminatoria-page .form-group {
+        margin-bottom: 0;
+    }
+
+    .eliminatoria-page .form-label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-strong);
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .eliminatoria-page .form-control {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 2px solid var(--border-main);
+        border-radius: var(--radius-sm);
+        background: var(--bg-surface);
+        color: var(--text-main);
+        font-size: 1rem;
+        transition: all 0.3s;
+    }
+
+    .eliminatoria-page .form-control:focus {
+        outline: none;
+        border-color: var(--color-accent-600);
+        box-shadow: 0 0 0 3px rgba(5, 116, 184, 0.1);
+    }
+
+    .eliminatoria-page .status-banner {
+        background: var(--bg-surface);
+        border: 2px solid var(--border-main);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-card);
+    }
+
+    .eliminatoria-page .status-banner.warning {
+        border-color: var(--warning);
+        background: rgba(245, 158, 11, 0.05);
+    }
+
+    .eliminatoria-page .status-banner.success {
+        border-color: var(--success);
+        background: rgba(34, 197, 94, 0.05);
+    }
+
+    .eliminatoria-page .status-content {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .eliminatoria-page .status-icon {
+        font-size: 2rem;
+        line-height: 1;
+    }
+
+    .eliminatoria-page .status-text strong {
+        display: block;
+        font-size: 1.1rem;
+        color: var(--text-heading);
+        margin-bottom: 0.25rem;
+    }
+
+    .eliminatoria-page .status-text p {
+        margin: 0;
+        color: var(--text-main);
+        font-size: 0.95rem;
+    }
+
+    .eliminatoria-page .table-wrapper {
+        background: var(--bg-surface);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-card);
+        overflow: hidden;
+        border: 1px solid var(--border-muted);
+        margin-bottom: 2rem;
+    }
+
+    .eliminatoria-page .table-header {
+        background: var(--bg-surface-soft);
+        padding: 1.5rem;
+        border-bottom: 2px solid var(--border-main);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .eliminatoria-page .table-title {
+        color: var(--text-heading);
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .eliminatoria-page .table-container {
+        overflow-x: auto;
+    }
+
+    .eliminatoria-page table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .eliminatoria-page thead {
+        background: var(--bg-surface-soft);
+        border-bottom: 2px solid var(--border-main);
+    }
+
+    .eliminatoria-page th {
+        padding: 1rem;
+        text-align: left;
+        font-weight: 700;
+        color: var(--text-strong);
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .eliminatoria-page tbody tr {
+        border-bottom: 1px solid var(--border-muted);
+        transition: background 0.2s ease;
+    }
+
+    .eliminatoria-page tbody tr:hover {
+        background: var(--bg-surface-soft);
+    }
+
+    .eliminatoria-page td {
+        padding: 1.25rem 1rem;
+        color: var(--text-main);
+        font-size: 0.95rem;
+    }
+
+    .eliminatoria-page .position-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: var(--color-accent-500);
+        color: white;
+        font-weight: 700;
+        font-size: 1rem;
+    }
+
+    .eliminatoria-page .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.875rem;
+        border-radius: var(--radius-sm);
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    .eliminatoria-page .status-confirmado {
+        background: rgba(34, 197, 94, 0.1);
+        color: var(--success);
+        border: 1px solid var(--success);
+    }
+
+    .eliminatoria-page .status-preinscrito {
+        background: rgba(59, 130, 246, 0.1);
+        color: #1e40af;
+        border: 1px solid #3b82f6;
+    }
+
+    .eliminatoria-page .btn {
+        padding: 0.875rem 1.5rem;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        white-space: nowrap;
+    }
+
+    .eliminatoria-page .btn-primary {
+        background: var(--color-accent-600);
+        color: white;
+    }
+
+    .eliminatoria-page .btn-primary:hover:not(:disabled) {
+        background: var(--color-accent-700);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-soft);
+    }
+
+    .eliminatoria-page .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background: #6b7280;
+    }
+
+    .eliminatoria-page .loading-container {
+        text-align: center;
+        padding: 3rem;
+    }
+
+    .eliminatoria-page .spinner {
+        border: 3px solid var(--border-main);
+        border-top: 3px solid var(--color-accent-500);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: elim-spin 1s linear infinite;
+        margin: 0 auto 1rem;
+    }
+
+    @keyframes elim-spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .eliminatoria-page .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+    }
+
+    .eliminatoria-page .empty-title {
+        color: var(--text-heading);
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .eliminatoria-page .empty-text {
+        color: var(--text-muted);
+        font-size: 1rem;
+    }
+
+    .eliminatoria-page .info-card {
+        background: var(--bg-surface);
+        border: 2px solid var(--border-main);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+        box-shadow: var(--shadow-card);
+    }
+
+    .eliminatoria-page .info-title {
+        color: var(--text-heading);
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .eliminatoria-page .info-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .eliminatoria-page .info-list li {
+        padding: 0.5rem 0;
+        padding-left: 1.5rem;
+        position: relative;
+        color: var(--text-main);
+        font-size: 0.95rem;
+    }
+
+    .eliminatoria-page .info-list li:before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: var(--color-accent-500);
+        font-weight: 700;
+    }
+
+    .eliminatoria-page #alert-container {
+        margin-bottom: 1rem;
+    }
+
+    .eliminatoria-page .alert {
+        padding: 1rem 1.5rem;
+        border-radius: var(--radius-sm);
+        margin-bottom: 1rem;
+        font-weight: 500;
+        border-left: 4px solid;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        animation: slideIn 0.3s;
+    }
+
+    .eliminatoria-page .alert-success {
+        background: rgba(34, 197, 94, 0.1);
+        color: #065f46;
+        border-color: #10b981;
+    }
+
+    .eliminatoria-page .alert-danger {
+        background: rgba(239, 68, 68, 0.1);
+        color: #991b1b;
+        border-color: #ef4444;
+    }
+
+    .eliminatoria-page .alert-warning {
+        background: rgba(245, 158, 11, 0.1);
+        color: #92400e;
+        border-color: #f59e0b;
+    }
+
+    @keyframes slideIn {
+        from { transform: translateX(-100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+        .eliminatoria-page .elim-container {
+            padding: 1rem;
+        }
+
+        .eliminatoria-page .filter-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .eliminatoria-page .table-header {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .eliminatoria-page .btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+
+<script src="../js/eliminatoria.js"></script>

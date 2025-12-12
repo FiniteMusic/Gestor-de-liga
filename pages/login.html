@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Liga Deportiva</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="icon" href="../img/logo.png" type="image/png">
+</head>
+
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="container-nav">
+            <div class="logo">
+                <img src="../img/logo.png" alt="Logo" class="logo-img">
+                <span class="logo-text">Sports League</span>
+            </div>
+           
+            <div class="toggle-container">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="darkModeToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="login-container">
+        <!-- Panel Izquierdo - Formulario -->
+        <div class="login-left">
+            <div class="login-content">
+
+                <!-- Título -->
+                <div class="login-title">
+                    <h1>Bienvenidos</h1>
+                    <p class="subtitle">Accede a tu perfil</p>
+                </div>
+
+                <!-- Formulario -->
+                <form id="login-form" autocomplete="on">
+                    <div class="form-group">
+                        <label for="username">USERNAME</label>
+                        <input type="text" id="username" name="username" 
+                               placeholder="Ingresa tu correo" 
+                               autocomplete="username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">PASSWORD</label>
+                        <div class="password-wrapper">
+                             <button type="button" class="toggle-password" id="togglePassword" aria-label="Mostrar contraseña">
+                                <!-- Icono de ojo cerrado (oculto) -->
+                                <svg id="eyeOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                                </svg>
+                                <!-- Icono de ojo abierto (visible) -->
+                                <svg id="eyeOn" style="display: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                            <input type="password" id="password" name="password" 
+                                   placeholder="Ingresa tu contraseña" 
+                                   autocomplete="current-password" required>
+                            
+                        </div>
+                    </div>
+
+                    <button type="submit" class="login-btn">INICIAR SESIÓN</button>
+
+                    <div id="login-error" class="error-message"></div>
+                    
+                    <div class="register-link">
+                        No tienes cuenta? <a href="sign_up.html">Regístrate</a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Botón Home -->
+            <a href="../index.html" class="home-btn" title="Volver al inicio">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Panel Derecho - Ilustración -->
+        <div class="login-right">
+            <div class="illustration">
+                <!-- Círculos decorativos de fondo -->
+                <div class="circle circle-1"></div>
+                <div class="circle circle-2"></div>
+                <div class="circle circle-3"></div>
+                <div class="circle circle-4"></div>
+                <div class="circle circle-5"></div>
+                
+                <!-- Figura central -->
+                <div class="main-figure">
+                    <div class="figure-hair"></div>
+                    <div class="figure-head"></div>
+                    <div class="figure-body"></div>
+                    <div class="figure-laptop"></div>
+                    <div class="idea-bulb">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="../js/login.js"></script>    
+<script src="../js/scrip.js"></script>
+</body>
+
+</html>
